@@ -14,7 +14,7 @@ const Index = () => {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6 }}
           className="container mx-auto text-center"
         >
@@ -44,7 +44,7 @@ const Index = () => {
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.6 }}
             className="text-3xl font-bold text-primary text-center mb-12"
           >
@@ -72,7 +72,7 @@ const Index = () => {
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 className="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow"
               >
@@ -91,7 +91,7 @@ const Index = () => {
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.6 }}
             className="text-3xl font-bold text-primary text-center mb-12"
           >
@@ -102,19 +102,19 @@ const Index = () => {
               {
                 name: "Abishai KC",
                 role: "ML Engineer",
-                image: "https://api.dicebear.com/7.x/initials/svg?seed=AK",
+                image: "https://api.dicebear.com/7.x/initials/svg?seed=AK&backgroundColor=2D3648&textColor=ffffff",
                 linkedin: "https://www.linkedin.com/in/abishai-k-c-6a5288271/"
               },
               {
                 name: "Mohamed Ahsan",
                 role: "Data Scientist",
-                image: "https://api.dicebear.com/7.x/initials/svg?seed=MA",
+                image: "https://api.dicebear.com/7.x/initials/svg?seed=MA&backgroundColor=2D3648&textColor=ffffff",
                 linkedin: "https://www.linkedin.com/in/mohamedahsan037/"
               },
               {
                 name: "Jai Surya",
                 role: "UX/UI Designer",
-                image: "https://api.dicebear.com/7.x/initials/svg?seed=JS",
+                image: "https://api.dicebear.com/7.x/initials/svg?seed=JS&backgroundColor=2D3648&textColor=ffffff",
                 linkedin: "https://www.linkedin.com/in/jai-surya-1801abc/"
               }
             ].map((member, index) => (
@@ -122,7 +122,7 @@ const Index = () => {
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"
               >
