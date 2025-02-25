@@ -1,6 +1,7 @@
+
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
-import { ArrowRight, Brain, ChartBarIcon, Shield, Linkedin, Calculator, PieChart } from "lucide-react";
+import { ArrowRight, Brain, ChartBarIcon, Shield, Linkedin, Calculator, PieChart, Info } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
@@ -38,14 +39,25 @@ const Index = () => {
               <Calculator className="mr-2 h-4 w-4" />
               GDP Calculator
             </Button>
-            <Button 
-              size="lg" 
-              className="bg-blue-500 hover:bg-blue-600"
-              onClick={() => navigate("/investment-allocation")}
-            >
-              <PieChart className="mr-2 h-4 w-4" />
-              Investment Allocation
-            </Button>
+            <div className="flex gap-2">
+              <Button 
+                size="lg" 
+                className="bg-blue-500 hover:bg-blue-600"
+                onClick={() => navigate("/investment-allocation")}
+              >
+                <PieChart className="mr-2 h-4 w-4" />
+                Investment Allocation
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-blue-500 text-blue-500 hover:bg-blue-50"
+                onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                <Info className="mr-2 h-4 w-4" />
+                Learn More
+              </Button>
+            </div>
           </div>
         </motion.div>
       </section>
