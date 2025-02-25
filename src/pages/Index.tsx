@@ -52,7 +52,7 @@ const Index = () => {
                 size="lg"
                 variant="outline"
                 className="border-blue-500 text-blue-500 hover:bg-blue-50"
-                onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => navigate("/learn-more")}
               >
                 <Info className="mr-2 h-4 w-4" />
                 Learn More

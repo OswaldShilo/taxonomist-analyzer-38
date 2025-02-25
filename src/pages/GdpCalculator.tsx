@@ -65,7 +65,7 @@ const GdpCalculator = () => {
             <div>
               <h1 className="text-4xl font-bold text-primary mb-4">GDP Calculator</h1>
               <p className="text-secondary text-lg">
-                Enter the economic indicators below to calculate the estimated GDP.
+                Enter the economic indicators below to calculate the estimated GDP (in ₹ Crores).
               </p>
             </div>
 
@@ -87,7 +87,7 @@ const GdpCalculator = () => {
 
               <div>
                 <label className="text-lg font-medium mb-3 block text-primary">
-                  Personal Consumption Expenditure ($B)
+                  Personal Consumption Expenditure (₹ Crores)
                 </label>
                 <Input
                   type="number"
@@ -101,7 +101,7 @@ const GdpCalculator = () => {
 
               <div>
                 <label className="text-lg font-medium mb-3 block text-primary">
-                  Federal Government Current Expenditure ($B)
+                  Government Expenditure (₹ Crores)
                 </label>
                 <Input
                   type="number"
@@ -115,7 +115,7 @@ const GdpCalculator = () => {
 
               <div>
                 <label className="text-lg font-medium mb-3 block text-primary">
-                  M1 Money Supply ($B)
+                  M1 Money Supply (₹ Crores)
                 </label>
                 <Input
                   type="number"
@@ -129,7 +129,7 @@ const GdpCalculator = () => {
 
               <div>
                 <label className="text-lg font-medium mb-3 block text-primary">
-                  M2 Money Supply ($B)
+                  M2 Money Supply (₹ Crores)
                 </label>
                 <Input
                   type="number"
@@ -143,7 +143,7 @@ const GdpCalculator = () => {
 
               <div>
                 <label className="text-lg font-medium mb-3 block text-primary">
-                  Federal Debt ($B)
+                  Federal Debt (₹ Crores)
                 </label>
                 <Input
                   type="number"
@@ -173,7 +173,7 @@ const GdpCalculator = () => {
               >
                 <h3 className="text-xl font-semibold mb-2 text-primary">Estimated GDP</h3>
                 <p className="text-4xl font-bold text-primary">
-                  ${result.toLocaleString()} Billion
+                  ₹{result.toLocaleString()} Crores
                 </p>
               </motion.div>
             )}
