@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Calculator } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 const Navbar = () => {
   return (
@@ -9,7 +9,6 @@ const Navbar = () => {
         <div className="text-xl font-semibold text-primary">Taxonomist</div>
         <div className="flex items-center gap-6">
           <a href="#features" className="text-secondary hover:text-primary transition-colors">Features</a>
-          <a href="#calculator" className="text-secondary hover:text-primary transition-colors">GDP Calculator</a>
           <a href="#team" className="text-secondary hover:text-primary transition-colors">Team</a>
           <Button className="bg-primary hover:bg-primary/90">
             Get Started <ChevronRight className="ml-2 h-4 w-4" />
