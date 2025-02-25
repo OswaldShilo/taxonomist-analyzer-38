@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import GdpCalculator from "./pages/GdpCalculator";
+import InvestmentAllocation from "./pages/InvestmentAllocation";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -19,6 +20,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/calculator" element={<GdpCalculator />} />
+          <Route path="/investment-allocation" element={<InvestmentAllocation />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
