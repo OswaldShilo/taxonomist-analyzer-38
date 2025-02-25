@@ -43,7 +43,7 @@ const InvestmentAllocation = () => {
       style={{ 
         backgroundImage: 'url("/photo-1486312338219-ce68d2c6f44d")',
         backgroundColor: 'rgba(255, 255, 255, 0.95)',
-        backgroundBlend: 'overlay'
+        backgroundBlendMode: 'overlay'
       }}
     >
       <div className="min-h-screen backdrop-blur-sm py-8 px-4">
