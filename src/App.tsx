@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import GdpCalculator from "./pages/GdpCalculator";
 import InvestmentAllocation from "./pages/InvestmentAllocation";
 import NotFound from "./pages/NotFound";
+import LearnMore from "./pages/LearnMore";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/calculator" element={<GdpCalculator />} />
           <Route path="/investment-allocation" element={<InvestmentAllocation />} />
+          <Route path="/learn-more" element={<LearnMore />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
