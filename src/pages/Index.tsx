@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import { ArrowRight, Brain, ChartBarIcon, Shield, Linkedin, Calculator, PieChart, Info } from "lucide-react";
@@ -105,60 +106,6 @@ const Index = () => {
               </motion.div>
             ))}
           </div>
-
-          {/* Investment Allocation Details */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
-            transition={{ duration: 0.6 }}
-            className="mt-20"
-          >
-            <h2 className="text-3xl font-bold text-primary text-center mb-8">
-              Smart Investment Allocation
-            </h2>
-            <p className="text-secondary text-lg text-center max-w-2xl mx-auto mb-12">
-              Our ML model analyzes historical data to provide optimal investment allocation across different sectors.
-            </p>
-            
-            <div className="grid md:grid-cols-2 gap-8 items-center max-w-5xl mx-auto">
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold mb-6">Key Features</h3>
-                <ul className="space-y-4">
-                  <li className="flex items-start gap-3">
-                    <ChartBarIcon className="h-5 w-5 text-primary mt-1" />
-                    <span>Historical data-driven recommendations</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Brain className="h-5 w-5 text-primary mt-1" />
-                    <span>ML-powered sector allocation</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Shield className="h-5 w-5 text-primary mt-1" />
-                    <span>Balanced risk assessment</span>
-                  </li>
-                </ul>
-              </div>
-              
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold mb-6">How It Works</h3>
-                <ol className="space-y-4 list-decimal list-inside text-secondary">
-                  <li>Enter your total investment budget (minimum 5000 crores)</li>
-                  <li>Our ML model analyzes historical patterns</li>
-                  <li>Get sector-wise allocation recommendations</li>
-                  <li>View detailed breakdown and insights</li>
-                </ol>
-                <Button
-                  size="lg"
-                  className="w-full mt-8 bg-primary hover:bg-primary/90"
-                  onClick={() => navigate("/investment-allocation")}
-                >
-                  Try Investment Allocation
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </section>
 
