@@ -25,10 +25,10 @@ const Index = () => {
             Introducing Taxonomist
           </div>
           <h1 className="text-5xl font-bold text-primary mb-6 max-w-3xl mx-auto leading-tight">
-            Predict Tax Policy Success with Machine Learning
+            Smart Trend Analysis & Estimation System
           </h1>
           <p className="text-secondary text-xl mb-8 max-w-2xl mx-auto">
-            Make informed decisions about tax policies using our advanced ML model. Get instant predictions and comprehensive analysis.
+            Make data-driven decisions using our advanced estimation system that analyzes historical trends and patterns to predict future outcomes.
           </p>
           <div className="flex gap-4 justify-center">
             <Button 
@@ -78,18 +78,18 @@ const Index = () => {
             {[
               {
                 icon: <Brain className="w-12 h-12 text-primary mb-4" />,
-                title: "ML-Powered Analysis",
-                description: "Advanced machine learning algorithms analyze tax policy effectiveness."
+                title: "Trend Analysis",
+                description: "Advanced algorithms analyze historical patterns to predict future trends."
               },
               {
                 icon: <ChartBarIcon className="w-12 h-12 text-primary mb-4" />,
-                title: "Accurate Predictions",
-                description: "Get detailed predictions based on historical data and economic indicators."
+                title: "Data-Driven Predictions",
+                description: "Make informed decisions based on comprehensive historical data analysis."
               },
               {
                 icon: <Shield className="w-12 h-12 text-primary mb-4" />,
-                title: "Reliable Results",
-                description: "Trust in our validated model with proven accuracy rates."
+                title: "Reliable Estimates",
+                description: "Get accurate estimations backed by robust statistical models."
               }
             ].map((feature, index) => (
               <motion.div

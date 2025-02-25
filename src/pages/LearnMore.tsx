@@ -25,9 +25,9 @@ const LearnMore = () => {
           className="space-y-12"
         >
           <section>
-            <h1 className="text-4xl font-bold text-primary mb-6">Understanding Tax Policy Success</h1>
+            <h1 className="text-4xl font-bold text-primary mb-6">Understanding Our Estimation System</h1>
             <p className="text-xl text-secondary leading-relaxed">
-              Our platform leverages advanced machine learning algorithms to analyze and predict the success of tax policies, helping policymakers and analysts make data-driven decisions.
+              Our platform leverages advanced machine learning algorithms to analyze historical trends and patterns, helping users make data-driven decisions with accurate predictions and estimations.
             </p>
           </section>
 
@@ -35,15 +35,15 @@ const LearnMore = () => {
             <h2 className="text-2xl font-semibold text-primary mb-4">How It Works</h2>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-accent/50 p-6 rounded-lg">
-                <h3 className="text-xl font-medium mb-3">Data Collection</h3>
+                <h3 className="text-xl font-medium mb-3">Data Analysis</h3>
                 <p className="text-secondary">
-                  We aggregate historical tax policy data, economic indicators, and implementation outcomes from reliable sources to build our prediction models.
+                  We collect and analyze historical data points and trends to identify patterns and correlations that inform our prediction models.
                 </p>
               </div>
               <div className="bg-accent/50 p-6 rounded-lg">
-                <h3 className="text-xl font-medium mb-3">ML Analysis</h3>
+                <h3 className="text-xl font-medium mb-3">ML Predictions</h3>
                 <p className="text-secondary">
-                  Our ML models analyze patterns in historical data to identify key success factors and potential risks in tax policy implementation.
+                  Our machine learning models process the analyzed data to generate accurate estimates and predictions for future trends.
                 </p>
               </div>
             </div>
@@ -54,19 +54,19 @@ const LearnMore = () => {
             <ul className="space-y-4 text-secondary">
               <li className="flex items-start gap-3">
                 <span className="font-semibold">1.</span>
-                <p>Make informed decisions based on historical data and ML predictions</p>
+                <p>Make informed decisions based on historical data analysis</p>
               </li>
               <li className="flex items-start gap-3">
                 <span className="font-semibold">2.</span>
-                <p>Identify potential risks and challenges before implementation</p>
+                <p>Identify emerging trends and patterns before they become obvious</p>
               </li>
               <li className="flex items-start gap-3">
                 <span className="font-semibold">3.</span>
-                <p>Optimize resource allocation for maximum policy effectiveness</p>
+                <p>Optimize resource allocation based on predictive analytics</p>
               </li>
               <li className="flex items-start gap-3">
                 <span className="font-semibold">4.</span>
-                <p>Track and analyze policy performance in real-time</p>
+                <p>Track and monitor prediction accuracy in real-time</p>
               </li>
             </ul>
           </section>
@@ -74,7 +74,7 @@ const LearnMore = () => {
           <section className="bg-primary/5 p-8 rounded-xl">
             <h2 className="text-2xl font-semibold text-primary mb-4">Get Started Today</h2>
             <p className="text-secondary mb-6">
-              Ready to enhance your tax policy decision-making? Use our GDP Calculator and Investment Allocation tools to get started.
+              Ready to leverage the power of data-driven predictions? Try our GDP Calculator and Investment Allocation tools to see the system in action.
             </p>
             <div className="flex gap-4">
               <Button 
