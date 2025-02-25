@@ -14,7 +14,6 @@ const InvestmentAllocation = () => {
   const [gdpIncrease, setGdpIncrease] = useState<number | null>(null);
   const [error, setError] = useState("");
 
-  // Colors for the sectors
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
 
   const handleCalculate = async () => {
@@ -24,7 +23,6 @@ const InvestmentAllocation = () => {
       return;
     }
     
-    // Using the exact output from your ML model
     const mockResults = [
       { name: "Metallurgical Industries", value: (budgetNum * 8829.48) / 50000 },
       { name: "Mining", value: (budgetNum * 9437.07) / 50000 },
@@ -34,77 +32,110 @@ const InvestmentAllocation = () => {
     ];
     
     setResults(mockResults);
-    // Calculate a mock GDP increase based on the investment
-    // This is a placeholder calculation - replace with actual model prediction
-    const mockGdpIncrease = (budgetNum / 50000) * 2.5; // 2.5% increase for 50000 crores
+    const mockGdpIncrease = (budgetNum / 50000) * 2.5;
     setGdpIncrease(mockGdpIncrease);
     setError("");
   };
 
   return (
-    <div className="min-h-screen bg-white p-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate("/")}
-            className="flex items-center gap-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Home
-          </Button>
-          <div className="text-xl font-semibold text-primary">Taxonomist</div>
-        </div>
-
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="space-y-8"
-        >
-          <div>
-            <h1 className="text-3xl font-bold text-primary mb-2">Investment Allocation</h1>
-            <p className="text-secondary mb-6">
-              Enter your budget to get ML-powered sector-wise investment recommendations.
-            </p>
+    <div 
+      className="min-h-screen bg-cover bg-center bg-fixed"
+      style={{ 
+        backgroundImage: 'url("/photo-1486312338219-ce68d2c6f44d")',
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        backgroundBlend: 'overlay'
+      }}
+    >
+      <div className="min-h-screen backdrop-blur-sm py-8 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center justify-between mb-12">
+            <Button 
+              variant="ghost" 
+              onClick={() => navigate("/")}
+              className="flex items-center gap-2 bg-white/80 hover:bg-white/90"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back to Home
+            </Button>
+            <div className="text-xl font-semibold text-primary bg-white/80 px-4 py-2 rounded-full">
+              Taxonomist
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="space-y-6">
-              <div>
-                <label className="text-sm font-medium mb-2 block">
-                  Investment Budget (Crores)
-                </label>
-                <Input
-                  type="number"
-                  value={budget}
-                  onChange={(e) => setBudget(e.target.value)}
-                  placeholder="Enter amount (min. 5000 crores)"
-                  min="5000"
-                />
-                {error && (
-                  <p className="text-red-500 text-sm mt-1">{error}</p>
-                )}
-              </div>
-
-              <Button 
-                size="lg" 
-                className="w-full bg-primary hover:bg-primary/90"
-                onClick={handleCalculate}
-              >
-                <PieChart className="mr-2 h-4 w-4" />
-                Calculate Allocation
-              </Button>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-12"
+          >
+            <div className="text-center max-w-2xl mx-auto bg-white/80 p-8 rounded-2xl backdrop-blur-md">
+              <h1 className="text-4xl font-bold text-primary mb-4">Investment Allocation</h1>
+              <p className="text-secondary text-lg">
+                Enter your budget to get ML-powered sector-wise investment recommendations.
+              </p>
             </div>
 
-            {results && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="space-y-6"
+            <div className="grid lg:grid-cols-2 gap-12">
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="bg-white/90 p-8 rounded-2xl shadow-lg backdrop-blur-md"
               >
-                <div className="bg-accent rounded-lg p-6">
-                  <h3 className="text-lg font-semibold mb-4">Recommended Allocation</h3>
-                  <div className="h-[300px]">
+                <div className="space-y-6">
+                  <div>
+                    <label className="text-lg font-medium mb-3 block text-primary">
+                      Investment Budget (Crores)
+                    </label>
+                    <Input
+                      type="number"
+                      value={budget}
+                      onChange={(e) => setBudget(e.target.value)}
+                      placeholder="Enter amount (min. 5000 crores)"
+                      min="5000"
+                      className="text-lg py-6"
+                    />
+                    {error && (
+                      <p className="text-red-500 text-sm mt-2">{error}</p>
+                    )}
+                  </div>
+
+                  <Button 
+                    size="lg" 
+                    className="w-full bg-primary hover:bg-primary/90 py-6 text-lg"
+                    onClick={handleCalculate}
+                  >
+                    <PieChart className="mr-3 h-5 w-5" />
+                    Calculate Allocation
+                  </Button>
+                </div>
+
+                {gdpIncrease !== null && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-8 bg-green-50/90 rounded-xl p-6 border border-green-200"
+                  >
+                    <div className="flex items-center gap-3 text-green-700 mb-3">
+                      <TrendingUp className="h-6 w-6" />
+                      <h3 className="text-xl font-semibold">Projected GDP Impact</h3>
+                    </div>
+                    <p className="text-4xl font-bold text-green-700 mb-2">
+                      +{gdpIncrease.toFixed(2)}% GDP Growth
+                    </p>
+                    <p className="text-sm text-green-600">
+                      Estimated annual GDP growth based on optimal sector allocation
+                    </p>
+                  </motion.div>
+                )}
+              </motion.div>
+
+              {results && (
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="bg-white/90 p-8 rounded-2xl shadow-lg backdrop-blur-md"
+                >
+                  <h3 className="text-2xl font-semibold mb-6 text-primary">Recommended Allocation</h3>
+                  <div className="h-[300px] mb-8">
                     <ResponsiveContainer width="100%" height="100%">
                       <RechartsChart>
                         <Pie
@@ -112,8 +143,8 @@ const InvestmentAllocation = () => {
                           cx="50%"
                           cy="50%"
                           labelLine={false}
-                          label={({ name, value }) => `${Math.round(value)} Cr`}
-                          outerRadius={80}
+                          label={({ value }) => `${Math.round(value)} Cr`}
+                          outerRadius={120}
                           fill="#8884d8"
                           dataKey="value"
                         >
@@ -125,44 +156,25 @@ const InvestmentAllocation = () => {
                       </RechartsChart>
                     </ResponsiveContainer>
                   </div>
-                  <div className="mt-4 space-y-2">
+                  <div className="space-y-3">
                     {results.map((item, index) => (
-                      <div key={index} className="flex justify-between items-center">
-                        <div className="flex items-center gap-2">
+                      <div key={index} className="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg transition-colors">
+                        <div className="flex items-center gap-3">
                           <div 
-                            className="w-3 h-3 rounded-full" 
+                            className="w-4 h-4 rounded-full" 
                             style={{ backgroundColor: COLORS[index % COLORS.length] }}
                           />
-                          <span>{item.name}</span>
+                          <span className="font-medium">{item.name}</span>
                         </div>
-                        <span className="font-medium">{Math.round(item.value)} Cr</span>
+                        <span className="text-lg font-semibold">{Math.round(item.value)} Cr</span>
                       </div>
                     ))}
                   </div>
-                </div>
-
-                {gdpIncrease !== null && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-green-50 rounded-lg p-6 border border-green-200"
-                  >
-                    <div className="flex items-center gap-2 text-green-700 mb-2">
-                      <TrendingUp className="h-5 w-5" />
-                      <h3 className="text-lg font-semibold">Projected GDP Impact</h3>
-                    </div>
-                    <p className="text-3xl font-bold text-green-700">
-                      +{gdpIncrease.toFixed(2)}% GDP Growth
-                    </p>
-                    <p className="text-sm text-green-600 mt-2">
-                      Estimated annual GDP growth based on optimal sector allocation
-                    </p>
-                  </motion.div>
-                )}
-              </motion.div>
-            )}
-          </div>
-        </motion.div>
+                </motion.div>
+              )}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </div>
   );
