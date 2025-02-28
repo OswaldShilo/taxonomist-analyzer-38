@@ -2,20 +2,17 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, PieChart, TrendingUp, Loader2 } from "lucide-react";
+import { ArrowLeft, PieChart, TrendingUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { PieChart as RechartsChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-import { useToast } from "@/hooks/use-toast";
 
 const InvestmentAllocation = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
   const [budget, setBudget] = useState("");
   const [results, setResults] = useState<{ name: string; value: number }[] | null>(null);
   const [gdpIncrease, setGdpIncrease] = useState<number | null>(null);
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
 
@@ -26,68 +23,18 @@ const InvestmentAllocation = () => {
       return;
     }
     
-    setIsLoading(true);
-    setError("");
+    const mockResults = [
+      { name: "Metallurgical Industries", value: (budgetNum * 8829.48) / 50000 },
+      { name: "Mining", value: (budgetNum * 9437.07) / 50000 },
+      { name: "Power", value: (budgetNum * 9614.16) / 50000 },
+      { name: "Non-conventional Energy", value: (budgetNum * 9751.16) / 50000 },
+      { name: "Petroleum & Natural Gas", value: (budgetNum * 12368.13) / 50000 }
+    ];
     
-    try {
-      // Replace this URL with your actual Colab API endpoint
-      const response = await fetch('https://your-colab-api-endpoint.com/predict', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ budget: budgetNum }),
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch data from the model');
-      }
-      
-      const data = await response.json();
-      
-      // Assuming the API returns an object with allocation data and gdp impact
-      // Adjust this according to your actual API response structure
-      if (data.allocations && data.gdpImpact) {
-        const formattedResults = data.allocations.map((item: any) => ({
-          name: item.sector,
-          value: item.amount
-        }));
-        
-        setResults(formattedResults);
-        setGdpIncrease(data.gdpImpact);
-        
-        toast({
-          title: "Calculation Successful",
-          description: "Investment allocation has been calculated based on the model.",
-        });
-      } else {
-        throw new Error('Invalid response format from the model');
-      }
-    } catch (error) {
-      console.error('Error fetching data from the model:', error);
-      setError("Failed to get allocation data. Using fallback calculations.");
-      
-      // Fallback to the previous mock calculations if API fails
-      const mockResults = [
-        { name: "Metallurgical Industries", value: (budgetNum * 8829.48) / 50000 },
-        { name: "Mining", value: (budgetNum * 9437.07) / 50000 },
-        { name: "Power", value: (budgetNum * 9614.16) / 50000 },
-        { name: "Non-conventional Energy", value: (budgetNum * 9751.16) / 50000 },
-        { name: "Petroleum & Natural Gas", value: (budgetNum * 12368.13) / 50000 }
-      ];
-      
-      setResults(mockResults);
-      const mockGdpIncrease = (budgetNum / 50000) * 2.5;
-      setGdpIncrease(mockGdpIncrease);
-      
-      toast({
-        title: "Using Fallback Data",
-        description: "Could not connect to the AI model. Using estimated calculations instead.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsLoading(false);
-    }
+    setResults(mockResults);
+    const mockGdpIncrease = (budgetNum / 50000) * 2.5;
+    setGdpIncrease(mockGdpIncrease);
+    setError("");
   };
 
   return (
@@ -155,14 +102,9 @@ const InvestmentAllocation = () => {
                     size="lg" 
                     className="w-full bg-primary hover:bg-primary/90 py-6 text-lg"
                     onClick={handleCalculate}
-                    disabled={isLoading}
                   >
-                    {isLoading ? (
-                      <Loader2 className="mr-3 h-5 w-5 animate-spin" />
-                    ) : (
-                      <PieChart className="mr-3 h-5 w-5" />
-                    )}
-                    {isLoading ? "Calculating..." : "Calculate Allocation"}
+                    <PieChart className="mr-3 h-5 w-5" />
+                    Calculate Allocation
                   </Button>
                 </div>
 
