@@ -1,69 +1,68 @@
-# Welcome to your Lovable project
+# Taxonomist - Gidy Submission
 
-## Project info
+**Predict Tax Policy Success with Machine Learning**
 
-**URL**: https://lovable.dev/projects/f4fed8fb-b199-424d-a650-9e3fb45f405c
+Taxonomist is a machine learning-powered web application that helps policymakers and analysts evaluate the potential success of tax policies based on economic indicators.
 
-## How can I edit this code?
+**Disclaimer:** Since the dataset/features are still extending we have only depicted part of the solution and the idea . This is an long term project idea and in working. Thus, this isnt the final output 
+## 🚀 Live Prototype  
+https://taxonomist-analyzer.vercel.app/
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## Google Colab (Model Link)
+https://colab.research.google.com/drive/1VM9ilhSLTPNncNurxLD6CSqtQpC0gjN7?usp=sharing
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/f4fed8fb-b199-424d-a650-9e3fb45f405c) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 📌 Features  
+- **Tax Policy Simulation** – Predict the economic impact of tax changes.  
+- **GDP Calculator** – Estimate GDP based on economic indicators.  
+- **User-Friendly Interface** – Intuitive and interactive web UI.  
+- **ML Model Integration** – Analytics for policy evaluation.  
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🛠️ How to Run the App  
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
+### 1️⃣ Clone the Repository  
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+git clone <repository-url>
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### 2️⃣ Navigate into the Project Directory  
+```sh
+cd taxonomist
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
+### 3️⃣ Install Dependencies  
+```sh
+npm install
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### 4️⃣ Start the Development Server  
+```sh
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The app should now be running at localhost.  
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+---
+## Frontend Preview:
+![image](https://github.com/user-attachments/assets/26462f13-539c-45ab-865a-5f6685792d33)
 
-**Use GitHub Codespaces**
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+![image](https://github.com/user-attachments/assets/131cbe42-a835-4bfa-82fe-df959c289bc2)
 
-## What technologies are used for this project?
 
-This project is built with .
+![image](https://github.com/user-attachments/assets/20f70e82-211a-40fd-a2a4-c5d3e9241e50)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
 
-## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/f4fed8fb-b199-424d-a650-9e3fb45f405c) and click on Share -> Publish.
+## 📜 Model Overview  
+The Taxonomist model is based on an **agentic approach**, dynamically linking tax policies, economic behavior, and socio-economic outcomes. The system simulates different agents, including **households, corporations, governments, and external sectors**, to predict GDP and policy effectiveness.  
 
-## I want to use a custom domain - is that possible?
+For more details, refer to the presentation in this repository
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+---
+
