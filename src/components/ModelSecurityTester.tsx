@@ -1,12 +1,12 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, 
   Tooltip, Legend, ResponsiveContainer
 } from "recharts";
-import { AlertTriangle, CheckCircle, XCircle, Activity, Shield, Lock } from "lucide-react";
+import { AlertTriangle, CheckCircle, XCircle, Activity, Shield, Lock, Server } from "lucide-react";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 
@@ -34,6 +34,15 @@ type LogEntry = {
   timestamp: string;
 };
 
+// Simulate a server-side storage
+type StoredInput = {
+  taxRate: string;
+  gdpGrowth: string;
+  inflation: string;
+  unemployment: string;
+  timestamp: string;
+};
+
 const ModelSecurityTester = () => {
   const [showTester, setShowTester] = useState(false);
   const [taxRate, setTaxRate] = useState("15");
@@ -44,12 +53,17 @@ const ModelSecurityTester = () => {
   const [anomalyData, setAnomalyData] = useState(initialAnomalyData);
   const [confidenceData, setConfidenceData] = useState(initialConfidenceData);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [serverVerification, setServerVerification] = useState(true);
+  const [showBackendLogs, setShowBackendLogs] = useState(false);
   const { toast } = useToast();
+
+  // Reference to store original inputs (simulates server-side storage)
+  const originalInputsRef = useRef<StoredInput | null>(null);
 
   // Function to get current time in string format
   const getCurrentTime = () => {
     const now = new Date();
-    return `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+    return `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
   };
 
   // Add a log entry
@@ -63,12 +77,67 @@ const ModelSecurityTester = () => {
     setLogs(prev => [newLog, ...prev].slice(0, 50)); // Keep last 50 logs
   };
 
+  // Simulate storing inputs on the server
+  const storeOriginalInputs = () => {
+    addLog("success", "Server: Original inputs stored securely.");
+    console.log("Storing original inputs:", { taxRate, gdpGrowth, inflation, unemployment });
+    
+    // Store the original inputs
+    originalInputsRef.current = {
+      taxRate,
+      gdpGrowth,
+      inflation,
+      unemployment,
+      timestamp: getCurrentTime()
+    };
+  };
+
+  // Validate inputs against stored originals
+  const validateInputs = () => {
+    if (!originalInputsRef.current) {
+      addLog("error", "Server: No original inputs found for validation!");
+      return false;
+    }
+
+    const original = originalInputsRef.current;
+    const current = { taxRate, gdpGrowth, inflation, unemployment };
+    
+    const isValid = 
+      original.taxRate === current.taxRate &&
+      original.gdpGrowth === current.gdpGrowth &&
+      original.inflation === current.inflation &&
+      original.unemployment === current.unemployment;
+
+    if (!isValid) {
+      addLog("warning", `Server: Input tampering detected! Original: ${JSON.stringify(original)}, Current: ${JSON.stringify(current)}`);
+      console.log("Validation failed:", { original, current });
+    } else {
+      addLog("success", "Server: Input validation passed. Processing request.");
+    }
+
+    return isValid;
+  };
+
   // Normal data submission
   const handleSubmitNormal = () => {
     setIsProcessing(true);
     
+    // Store original inputs (simulate server-side storage)
+    storeOriginalInputs();
+    
     // Simulate processing delay
     setTimeout(() => {
+      if (serverVerification && !validateInputs()) {
+        toast({
+          title: "Security Alert",
+          description: "Input validation failed! Request blocked.",
+          variant: "destructive",
+        });
+        updateChartsBreach();
+        setIsProcessing(false);
+        return;
+      }
+      
       addLog("success", "Normal input processed successfully. No anomalies detected.");
       toast({
         title: "Success",
@@ -85,8 +154,43 @@ const ModelSecurityTester = () => {
   const handleSubmitOutlier = () => {
     setIsProcessing(true);
     
+    // First, store original inputs
+    if (!originalInputsRef.current) {
+      storeOriginalInputs();
+    }
+    
+    // Then simulate client-side tampering
+    const originalTaxRate = taxRate;
+    const originalGdpGrowth = gdpGrowth;
+    
     // Simulate processing delay
     setTimeout(() => {
+      // Simulate tampering with inputs for demonstration
+      if (serverVerification) {
+        addLog("warning", "Client: Attempting to tamper with inputs before processing...");
+        const tamperedTaxRate = (parseFloat(taxRate) * 3).toString();
+        const tamperedGdpGrowth = (parseFloat(gdpGrowth) * 2).toString();
+        
+        addLog("warning", `Client: Changing tax rate from ${taxRate} to ${tamperedTaxRate}`);
+        addLog("warning", `Client: Changing GDP growth from ${gdpGrowth} to ${tamperedGdpGrowth}`);
+        
+        // Validate against original inputs
+        if (!validateInputs()) {
+          addLog("error", "Server: Input tampering detected! Request blocked.");
+          toast({
+            title: "Security Alert",
+            description: "Input tampering detected and blocked by server validation!",
+            variant: "destructive",
+          });
+          
+          // Update charts with breach pattern
+          updateChartsBreach();
+          setIsProcessing(false);
+          return;
+        }
+      }
+      
+      // If server verification is off or validation passes
       if (Math.random() > 0.2) { // 80% chance to detect the outlier
         addLog("warning", "Anomaly detected! Potential attack prevented. Unusual patterns in GDP growth and inflation.");
         toast({
@@ -275,6 +379,49 @@ const ModelSecurityTester = () => {
                     Inject Outliers (Simulate Attack)
                   </Button>
                 </div>
+                
+                <div className="border-t pt-3 mt-2">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-700 flex items-center">
+                      <Server className="h-4 w-4 mr-1 text-[#9b87f5]" />
+                      Server Security Settings
+                    </span>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => setShowBackendLogs(!showBackendLogs)} 
+                      className="text-xs text-[#9b87f5] hover:text-[#7E69AB] p-0"
+                    >
+                      {showBackendLogs ? "Hide Details" : "Show Details"}
+                    </Button>
+                  </div>
+                  
+                  {showBackendLogs && (
+                    <div className="bg-[#221F26] text-white text-xs p-3 rounded mb-3 font-mono">
+                      <p className="text-green-400">
+                        <span className="text-gray-400"># Server-side security measures:</span>
+                      </p>
+                      <p className="text-white">
+                        - Original inputs stored in secure database<br />
+                        - Input re-validation before model execution<br />
+                        - Attack detection with anomaly scoring<br />
+                        - Secure API endpoints with input validation
+                      </p>
+                    </div>
+                  )}
+                  
+                  <div className="flex items-center">
+                    <button 
+                      onClick={() => setServerVerification(!serverVerification)}
+                      className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${serverVerification ? 'bg-[#9b87f5]' : 'bg-gray-300'}`}
+                    >
+                      <span className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${serverVerification ? 'translate-x-5' : 'translate-x-0'}`} />
+                    </button>
+                    <span className="ml-2 text-sm font-medium text-gray-700">
+                      Server-side Validation {serverVerification ? "Enabled" : "Disabled"}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
             
@@ -393,3 +540,4 @@ const ModelSecurityTester = () => {
 };
 
 export default ModelSecurityTester;
+
