@@ -5,6 +5,7 @@ import { ArrowRight, Brain, ChartBarIcon, Shield, Linkedin, Calculator, PieChart
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import ModelSecurity from "@/components/ModelSecurity";
+import ModelSecurityTester from "@/components/ModelSecurityTester";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -131,6 +132,9 @@ const Index = () => {
           </motion.div>
           
           <ModelSecurity />
+          
+          {/* Add the new ModelSecurityTester component */}
+          <ModelSecurityTester />
         </div>
       </section>
 
