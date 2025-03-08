@@ -99,16 +99,6 @@ const ModelSecurity = () => {
           </div>
         </motion.div>
       </div>
-      
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="text-lg font-semibold mb-2">How Our Security Analysis Works</h3>
-        <p className="text-gray-700">
-          Our security analysis uses an anomaly detection model that identifies potential data poisoning attacks. 
-          The system monitors input patterns and calculates an anomaly score based on statistical deviations from expected values.
-          When suspicious inputs are detected, the model's confidence drops significantly, triggering security alerts.
-          This approach helps protect against adversarial attacks that might attempt to manipulate model predictions.
-        </p>
-      </div>
     </div>
   );
 };
