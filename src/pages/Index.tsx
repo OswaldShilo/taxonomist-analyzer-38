@@ -165,25 +165,31 @@ const Index = () => {
           >
             Meet Our Team
           </motion.h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-4 gap-8">
             {[
               {
-                name: "Abishai KC",
-                role: "ML Engineer",
-                image: "https://api.dicebear.com/7.x/initials/svg?seed=AK&backgroundColor=2D3648&textColor=ffffff",
-                linkedin: "https://www.linkedin.com/in/abishai-k-c-6a5288271/"
-              },
-              {
-                name: "Mohamed Ahsan",
-                role: "Data Scientist",
-                image: "https://api.dicebear.com/7.x/initials/svg?seed=MA&backgroundColor=2D3648&textColor=ffffff",
-                linkedin: "https://www.linkedin.com/in/mohamedahsan037/"
-              },
-              {
                 name: "Jai Surya",
-                role: "UX/UI Designer",
+                role: "ML Engineer",
                 image: "https://api.dicebear.com/7.x/initials/svg?seed=JS&backgroundColor=2D3648&textColor=ffffff",
                 linkedin: "https://www.linkedin.com/in/jai-surya-1801abc/"
+              },
+              {
+                name: "Karthick Raja",
+                role: "UX/UI Designer",
+                image: "https://api.dicebear.com/7.x/initials/svg?seed=KR&backgroundColor=2D3648&textColor=ffffff",
+                linkedin: "http://linkedin.com/in/karthickraja777"
+              },
+              {
+                name: "Oswald Shilo",
+                role: "Frontend Developer",
+                image: "https://api.dicebear.com/7.x/initials/svg?seed=OS&backgroundColor=2D3648&textColor=ffffff",
+                linkedin: "https://www.linkedin.com/in/oswaldshilo/"
+              },
+              {
+                name: "Nemaleshwar",
+                role: "Backend Developer",
+                image: "https://api.dicebear.com/7.x/initials/svg?seed=N&backgroundColor=2D3648&textColor=ffffff",
+                linkedin: "https://www.linkedin.com/in/nemaleshwar/"
               }
             ].map((member, index) => (
               <motion.div
