@@ -1,10 +1,11 @@
+
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Calculator } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import Logo from "@/components/Logo";
+import Navbar from "@/components/Navbar";
 
 const GdpCalculator = () => {
   const navigate = useNavigate();
@@ -52,7 +53,13 @@ const GdpCalculator = () => {
               <ArrowLeft className="h-4 w-4" />
               Back to Home
             </Button>
-            <Logo className="h-10" />
+            <div className="flex items-center">
+              <img 
+                src="/lovable-uploads/19a83dc0-8198-4795-aa66-ad45a5b5f9be.png" 
+                alt="Taxonomist Logo" 
+                className="h-10"
+              />
+            </div>
           </div>
 
           <motion.div 

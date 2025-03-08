@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -5,7 +6,6 @@ import { ArrowLeft, PieChart, TrendingUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { PieChart as RechartsChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-import Logo from "@/components/Logo";
 
 const InvestmentAllocation = () => {
   const navigate = useNavigate();
@@ -57,7 +57,13 @@ const InvestmentAllocation = () => {
               <ArrowLeft className="h-4 w-4" />
               Back to Home
             </Button>
-            <Logo className="h-10" />
+            <div className="flex items-center">
+              <img 
+                src="/lovable-uploads/19a83dc0-8198-4795-aa66-ad45a5b5f9be.png" 
+                alt="Taxonomist Logo" 
+                className="h-10"
+              />
+            </div>
           </div>
 
           <motion.div 
