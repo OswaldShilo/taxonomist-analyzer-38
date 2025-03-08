@@ -1,9 +1,10 @@
 
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
-import { ArrowRight, Brain, ChartBarIcon, Shield, Linkedin, Calculator, PieChart, Info } from "lucide-react";
+import { ArrowRight, Brain, ChartBarIcon, Shield, Linkedin, Calculator, PieChart, Info, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import ModelSecurity from "@/components/ModelSecurity";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -106,6 +107,30 @@ const Index = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* How Secure is Our Model? Section */}
+      <section id="security" className="py-20 px-4">
+        <div className="container mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <div className="inline-flex items-center mb-4 px-4 py-1 bg-red-50 rounded-full text-sm font-medium text-red-600">
+              <Lock className="mr-2 h-4 w-4" />
+              Security Analysis
+            </div>
+            <h2 className="text-3xl font-bold text-primary">How Secure is Our Model?</h2>
+            <p className="text-secondary text-lg mt-4 max-w-2xl mx-auto">
+              Explore how our system detects and prevents data poisoning attacks to ensure reliable predictions and trend analysis.
+            </p>
+          </motion.div>
+          
+          <ModelSecurity />
         </div>
       </section>
 
