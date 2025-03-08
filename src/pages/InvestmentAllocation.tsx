@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import { ArrowLeft, PieChart, TrendingUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { PieChart as RechartsChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import Logo from "@/components/Logo";
 
 const InvestmentAllocation = () => {
   const navigate = useNavigate();
@@ -57,9 +57,7 @@ const InvestmentAllocation = () => {
               <ArrowLeft className="h-4 w-4" />
               Back to Home
             </Button>
-            <div className="text-xl font-semibold text-primary bg-white/80 px-4 py-2 rounded-full">
-              Taxonomist
-            </div>
+            <Logo className="h-10" />
           </div>
 
           <motion.div 

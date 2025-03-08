@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import Logo from "@/components/Logo";
 
 const LearnMore = () => {
   const navigate = useNavigate();
@@ -10,14 +11,17 @@ const LearnMore = () => {
   return (
     <div className="min-h-screen bg-white py-8 px-4">
       <div className="max-w-4xl mx-auto">
-        <Button 
-          variant="ghost" 
-          onClick={() => navigate("/")}
-          className="mb-8 hover:bg-accent"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Home
-        </Button>
+        <div className="flex items-center justify-between mb-8">
+          <Button 
+            variant="ghost" 
+            onClick={() => navigate("/")}
+            className="hover:bg-accent"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Home
+          </Button>
+          <Logo className="h-10" />
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
