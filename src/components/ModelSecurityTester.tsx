@@ -1,39 +1,11 @@
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { 
-  LineChart, Line, XAxis, YAxis, CartesianGrid, 
-  Tooltip, Legend, ResponsiveContainer
-} from "recharts";
-import { AlertTriangle, CheckCircle, XCircle, Activity, Shield, Lock, Server } from "lucide-react";
+import { CheckCircle, XCircle, Activity, Shield, Server, AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { useSecurityDataStore } from "@/store/securityDataStore";
-
-// Initial data for the charts
-const initialAnomalyData = [
-  { time: "0s", score: 0.2 },
-  { time: "5s", score: 0.21 },
-  { time: "10s", score: 0.22 },
-  { time: "15s", score: 0.2 },
-  { time: "20s", score: 0.19 },
-];
-
-const initialConfidenceData = [
-  { time: "0s", confidence: 0.94 },
-  { time: "5s", confidence: 0.94 },
-  { time: "10s", confidence: 0.95 },
-  { time: "15s", confidence: 0.94 },
-  { time: "20s", confidence: 0.96 },
-];
-
-type LogEntry = {
-  id: number;
-  type: "success" | "warning" | "error";
-  message: string;
-  timestamp: string;
-};
 
 // Simulate a server-side storage
 type StoredInput = {
@@ -41,6 +13,13 @@ type StoredInput = {
   gdpGrowth: string;
   inflation: string;
   unemployment: string;
+  timestamp: string;
+};
+
+type LogEntry = {
+  id: number;
+  type: "success" | "warning" | "error";
+  message: string;
   timestamp: string;
 };
 
@@ -53,8 +32,6 @@ const ModelSecurityTester = () => {
   const [inflation, setInflation] = useState("3.5");
   const [unemployment, setUnemployment] = useState("4.1");
   const [logs, setLogs] = useState<LogEntry[]>([]);
-  const [anomalyData, setAnomalyData] = useState(initialAnomalyData);
-  const [confidenceData, setConfidenceData] = useState(initialConfidenceData);
   const [isProcessing, setIsProcessing] = useState(false);
   const [serverVerification, setServerVerification] = useState(true);
   const [showBackendLogs, setShowBackendLogs] = useState(false);
@@ -163,8 +140,6 @@ const ModelSecurityTester = () => {
     }
     
     // Then simulate client-side tampering
-    const originalTaxRate = taxRate;
-    const originalGdpGrowth = gdpGrowth;
     
     // Simulate processing delay
     setTimeout(() => {
@@ -227,44 +202,26 @@ const ModelSecurityTester = () => {
   const updateChartsNormal = () => {
     const newTime = getCurrentTime();
     
-    // Update anomaly chart
-    setAnomalyData(prev => {
-      const newData = [...prev.slice(1), { time: newTime, score: 0.2 + Math.random() * 0.05 }];
-      return newData;
-    });
-    
-    // Update confidence chart
-    setConfidenceData(prev => {
-      const newData = [...prev.slice(1), { time: newTime, confidence: 0.92 + Math.random() * 0.05 }];
-      return newData;
-    });
-
     // Update shared store for ModelSecurity component to use
     const score = 0.2 + Math.random() * 0.05;
     const confidence = 0.92 + Math.random() * 0.05;
-    addDataPoint({ time: `Day ${Math.floor(Math.random() * 10) + 1}`, score, confidence });
+    addDataPoint({ 
+      time: `Day ${Math.floor(Math.random() * 10) + 1}`, 
+      score, 
+      confidence 
+    });
   };
 
   // Update charts with anomaly pattern
   const updateChartsAnomaly = () => {
-    const newTime = getCurrentTime();
-    
-    // Update anomaly chart with spike
-    setAnomalyData(prev => {
-      const newData = [...prev.slice(1), { time: newTime, score: 0.6 + Math.random() * 0.2 }];
-      return newData;
-    });
-    
-    // Update confidence chart with drop
-    setConfidenceData(prev => {
-      const newData = [...prev.slice(1), { time: newTime, confidence: 0.6 - Math.random() * 0.2 }];
-      return newData;
-    });
-
     // Update shared store for ModelSecurity component to use
     const score = 0.6 + Math.random() * 0.2;
     const confidence = 0.6 - Math.random() * 0.2;
-    addDataPoint({ time: `Day ${Math.floor(Math.random() * 10) + 1}`, score, confidence });
+    addDataPoint({ 
+      time: `Day ${Math.floor(Math.random() * 10) + 1}`, 
+      score, 
+      confidence 
+    });
     
     // Update anomalous inputs
     updateAnomalousInputs("Tax Rate", 0.4);
@@ -275,24 +232,14 @@ const ModelSecurityTester = () => {
 
   // Update charts with breach pattern
   const updateChartsBreach = () => {
-    const newTime = getCurrentTime();
-    
-    // Update anomaly chart with extreme spike
-    setAnomalyData(prev => {
-      const newData = [...prev.slice(1), { time: newTime, score: 0.85 + Math.random() * 0.1 }];
-      return newData;
-    });
-    
-    // Update confidence chart with severe drop
-    setConfidenceData(prev => {
-      const newData = [...prev.slice(1), { time: newTime, confidence: 0.4 - Math.random() * 0.2 }];
-      return newData;
-    });
-
     // Update shared store for ModelSecurity component to use
     const score = 0.85 + Math.random() * 0.1;
     const confidence = 0.4 - Math.random() * 0.2;
-    addDataPoint({ time: `Day ${Math.floor(Math.random() * 10) + 1}`, score, confidence });
+    addDataPoint({ 
+      time: `Day ${Math.floor(Math.random() * 10) + 1}`, 
+      score, 
+      confidence 
+    });
     
     // Update anomalous inputs with high values
     updateAnomalousInputs("Tax Rate", 0.7);
@@ -303,7 +250,7 @@ const ModelSecurityTester = () => {
 
   return (
     <div className="py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
         {/* Input Form */}
         <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
           <h4 className="text-lg font-medium mb-4 flex items-center">
@@ -478,62 +425,9 @@ const ModelSecurityTester = () => {
             </div>
           )}
         </div>
-        
-        {/* Real-time Graphs */}
-        <div className="space-y-6">
-          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-            <h4 className="text-lg font-medium mb-2 flex items-center">
-              <Activity className="text-gray-800 mr-2 h-4 w-4" />
-              Anomaly Score (Real-time)
-            </h4>
-            <div className="h-36">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={anomalyData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
-                  <XAxis dataKey="time" />
-                  <YAxis domain={[0, 1]} />
-                  <Tooltip contentStyle={{ borderRadius: '8px' }} />
-                  <Line 
-                    type="monotone" 
-                    dataKey="score" 
-                    stroke="#ff0000" 
-                    activeDot={{ r: 8 }}
-                    strokeWidth={2}
-                    isAnimationActive={true}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-          
-          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-            <h4 className="text-lg font-medium mb-2 flex items-center">
-              <Activity className="text-gray-800 mr-2 h-4 w-4" />
-              Model Confidence (Real-time)
-            </h4>
-            <div className="h-36">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={confidenceData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
-                  <XAxis dataKey="time" />
-                  <YAxis domain={[0, 1]} />
-                  <Tooltip contentStyle={{ borderRadius: '8px' }} />
-                  <Line 
-                    type="monotone" 
-                    dataKey="confidence" 
-                    stroke="#2D3648" 
-                    activeDot={{ r: 8 }}
-                    strokeWidth={2}
-                    isAnimationActive={true}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-        </div>
       </div>
       
-      <div className="bg-gray-50 p-4 border-t">
+      <div className="bg-gray-50 p-4 rounded-lg">
         <p className="text-sm text-gray-600 italic flex items-center">
           <Shield className="inline h-4 w-4 text-gray-800 mr-1" />
           The model continuously monitors input data for anomalies and potential security threats.
