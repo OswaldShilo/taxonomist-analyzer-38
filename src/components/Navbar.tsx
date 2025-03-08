@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Shield } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -17,7 +17,7 @@ const Navbar = () => {
         <div className="flex items-center gap-6">
           <a href="#features" className="text-secondary hover:text-primary transition-colors">Features</a>
           <a href="#security" className="text-secondary hover:text-primary transition-colors">
-            <Shield className="inline-block mr-1 h-4 w-4" /> Security Analysis
+            Security Analysis
           </a>
           <a href="#team" className="text-secondary hover:text-primary transition-colors">Team</a>
           <Button className="bg-primary hover:bg-primary/90">
