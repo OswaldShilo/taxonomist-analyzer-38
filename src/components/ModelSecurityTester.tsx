@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +8,7 @@ import {
 import { AlertTriangle, CheckCircle, XCircle, Activity, Shield, Lock, Server } from "lucide-react";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
+import { useSecurityDataStore } from "@/store/securityDataStore";
 
 // Initial data for the charts
 const initialAnomalyData = [
@@ -44,6 +44,9 @@ type StoredInput = {
 };
 
 const ModelSecurityTester = () => {
+  // Use our shared store
+  const { addDataPoint, updateAnomalousInputs } = useSecurityDataStore();
+  
   const [showTester, setShowTester] = useState(false);
   const [taxRate, setTaxRate] = useState("15");
   const [gdpGrowth, setGdpGrowth] = useState("5.2");
@@ -174,6 +177,10 @@ const ModelSecurityTester = () => {
         addLog("warning", `Client: Changing tax rate from ${taxRate} to ${tamperedTaxRate}`);
         addLog("warning", `Client: Changing GDP growth from ${gdpGrowth} to ${tamperedGdpGrowth}`);
         
+        // Update anomalous inputs in the shared store
+        updateAnomalousInputs("Tax Rate", 0.4);
+        updateAnomalousInputs("GDP Growth", 0.8);
+        
         // Validate against original inputs
         if (!validateInputs()) {
           addLog("error", "Server: Input tampering detected! Request blocked.");
@@ -231,6 +238,11 @@ const ModelSecurityTester = () => {
       const newData = [...prev.slice(1), { time: newTime, confidence: 0.92 + Math.random() * 0.05 }];
       return newData;
     });
+
+    // Update shared store for ModelSecurity component to use
+    const score = 0.2 + Math.random() * 0.05;
+    const confidence = 0.92 + Math.random() * 0.05;
+    addDataPoint({ time: `Day ${Math.floor(Math.random() * 10) + 1}`, score, confidence });
   };
 
   // Update charts with anomaly pattern
@@ -248,6 +260,17 @@ const ModelSecurityTester = () => {
       const newData = [...prev.slice(1), { time: newTime, confidence: 0.6 - Math.random() * 0.2 }];
       return newData;
     });
+
+    // Update shared store for ModelSecurity component to use
+    const score = 0.6 + Math.random() * 0.2;
+    const confidence = 0.6 - Math.random() * 0.2;
+    addDataPoint({ time: `Day ${Math.floor(Math.random() * 10) + 1}`, score, confidence });
+    
+    // Update anomalous inputs
+    updateAnomalousInputs("Tax Rate", 0.4);
+    updateAnomalousInputs("GDP Growth", 0.5);
+    updateAnomalousInputs("Inflation", 0.3);
+    updateAnomalousInputs("Unemployment", 0.2);
   };
 
   // Update charts with breach pattern
@@ -265,6 +288,17 @@ const ModelSecurityTester = () => {
       const newData = [...prev.slice(1), { time: newTime, confidence: 0.4 - Math.random() * 0.2 }];
       return newData;
     });
+
+    // Update shared store for ModelSecurity component to use
+    const score = 0.85 + Math.random() * 0.1;
+    const confidence = 0.4 - Math.random() * 0.2;
+    addDataPoint({ time: `Day ${Math.floor(Math.random() * 10) + 1}`, score, confidence });
+    
+    // Update anomalous inputs with high values
+    updateAnomalousInputs("Tax Rate", 0.7);
+    updateAnomalousInputs("GDP Growth", 0.9);
+    updateAnomalousInputs("Inflation", 0.8);
+    updateAnomalousInputs("Unemployment", 0.6);
   };
 
   return (
@@ -540,4 +574,3 @@ const ModelSecurityTester = () => {
 };
 
 export default ModelSecurityTester;
-

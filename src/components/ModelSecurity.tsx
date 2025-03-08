@@ -10,98 +10,76 @@ import { Shield, AlertTriangle, CheckCircle, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-
-// Sample data for the visualizations
-const anomalyScoreData = [
-  { name: "Day 1", normal: 0.2, poisoned: 0.2 },
-  { name: "Day 2", normal: 0.25, poisoned: 0.25 },
-  { name: "Day 3", normal: 0.22, poisoned: 0.22 },
-  { name: "Day 4", normal: 0.24, poisoned: 0.24 },
-  { name: "Day 5", normal: 0.26, poisoned: 0.27 },
-  { name: "Day 6", normal: 0.23, poisoned: 0.3 },
-  { name: "Day 7", normal: 0.25, poisoned: 0.45 },
-  { name: "Day 8", normal: 0.24, poisoned: 0.65 },
-  { name: "Day 9", normal: 0.26, poisoned: 0.85 },
-  { name: "Day 10", normal: 0.23, poisoned: 0.95 },
-];
-
-const predictionDeviationData = [
-  { name: "GDP Growth", normal: 5.4, poisoned: 2.1 },
-  { name: "Inflation", normal: 3.2, poisoned: 8.7 },
-  { name: "Investment", normal: 12.5, poisoned: 4.3 },
-  { name: "Employment", normal: 3.8, poisoned: 1.5 },
-  { name: "Tax Revenue", normal: 7.6, poisoned: 3.2 },
-];
-
-const confidenceData = [
-  { name: "Day 1", confidence: 0.95 },
-  { name: "Day 2", confidence: 0.93 },
-  { name: "Day 3", confidence: 0.94 },
-  { name: "Day 4", confidence: 0.92 },
-  { name: "Day 5", confidence: 0.91 },
-  { name: "Day 6", confidence: 0.85 },
-  { name: "Day 7", confidence: 0.75 },
-  { name: "Day 8", confidence: 0.62 },
-  { name: "Day 9", confidence: 0.52 },
-  { name: "Day 10", confidence: 0.41 },
-];
-
-const anomalousInputsData = [
-  { feature: "Tax Rate", score: 0.2 },
-  { feature: "GDP Growth", score: 0.8 },
-  { feature: "Inflation", score: 0.5 },
-  { feature: "Unemployment", score: 0.3 },
-  { feature: "Investment", score: 0.9 },
-];
-
-const precisionRecallData = [
-  { name: "0.1", precision: 1.0, recall: 0.3 },
-  { name: "0.2", precision: 0.95, recall: 0.4 },
-  { name: "0.3", precision: 0.9, recall: 0.55 },
-  { name: "0.4", precision: 0.85, recall: 0.65 },
-  { name: "0.5", precision: 0.8, recall: 0.7 },
-  { name: "0.6", precision: 0.75, recall: 0.75 },
-  { name: "0.7", precision: 0.7, recall: 0.85 },
-  { name: "0.8", precision: 0.6, recall: 0.9 },
-  { name: "0.9", precision: 0.5, recall: 0.95 },
-  { name: "1.0", precision: 0.4, recall: 1.0 },
-];
-
-const radarData = [
-  {
-    subject: "Detection",
-    normal: 85,
-    poisoned: 45,
-    fullMark: 100,
-  },
-  {
-    subject: "Prevention",
-    normal: 90,
-    poisoned: 40,
-    fullMark: 100,
-  },
-  {
-    subject: "Recovery",
-    normal: 75,
-    poisoned: 30,
-    fullMark: 100,
-  },
-  {
-    subject: "Monitoring",
-    normal: 95,
-    poisoned: 55,
-    fullMark: 100,
-  },
-  {
-    subject: "Response",
-    normal: 80,
-    poisoned: 35,
-    fullMark: 100,
-  },
-];
+import { useSecurityDataStore } from "@/store/securityDataStore";
 
 const ModelSecurity = () => {
   const [activeTab, setActiveTab] = useState("detection");
+  
+  // Use our shared store data
+  const { anomalyTimeSeriesData, confidenceData, anomalousInputsData } = useSecurityDataStore();
+
+  // Format confidence data for the area chart
+  const formattedConfidenceData = confidenceData.map(item => ({
+    name: item.time,
+    confidence: item.confidence
+  }));
+
+  // Data for prediction deviation chart (combining static with dynamic anomalous inputs)
+  const predictionDeviationData = [
+    { name: "GDP Growth", normal: 5.4, poisoned: 2.1 },
+    { name: "Inflation", normal: 3.2, poisoned: 8.7 },
+    { name: "Investment", normal: 12.5, poisoned: 4.3 },
+    { name: "Employment", normal: 3.8, poisoned: 1.5 },
+    { name: "Tax Revenue", normal: 7.6, poisoned: 3.2 },
+  ];
+
+  // Data for precision-recall curve
+  const precisionRecallData = [
+    { name: "0.1", precision: 1.0, recall: 0.3 },
+    { name: "0.2", precision: 0.95, recall: 0.4 },
+    { name: "0.3", precision: 0.9, recall: 0.55 },
+    { name: "0.4", precision: 0.85, recall: 0.65 },
+    { name: "0.5", precision: 0.8, recall: 0.7 },
+    { name: "0.6", precision: 0.75, recall: 0.75 },
+    { name: "0.7", precision: 0.7, recall: 0.85 },
+    { name: "0.8", precision: 0.6, recall: 0.9 },
+    { name: "0.9", precision: 0.5, recall: 0.95 },
+    { name: "1.0", precision: 0.4, recall: 1.0 },
+  ];
+
+  // Data for security radar
+  const radarData = [
+    {
+      subject: "Detection",
+      normal: 85,
+      poisoned: 45,
+      fullMark: 100,
+    },
+    {
+      subject: "Prevention",
+      normal: 90,
+      poisoned: 40,
+      fullMark: 100,
+    },
+    {
+      subject: "Recovery",
+      normal: 75,
+      poisoned: 30,
+      fullMark: 100,
+    },
+    {
+      subject: "Monitoring",
+      normal: 95,
+      poisoned: 55,
+      fullMark: 100,
+    },
+    {
+      subject: "Response",
+      normal: 80,
+      poisoned: 35,
+      fullMark: 100,
+    },
+  ];
 
   return (
     <div className="py-8">
@@ -162,12 +140,12 @@ const ModelSecurity = () => {
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart
-                    data={anomalyScoreData}
+                    data={anomalyTimeSeriesData}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
+                    <XAxis dataKey="time" />
+                    <YAxis domain={[0, 1]} />
                     <Tooltip contentStyle={{ borderRadius: '8px' }} />
                     <Legend />
                     <Line
@@ -204,12 +182,12 @@ const ModelSecurity = () => {
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart
-                    data={confidenceData}
+                    data={formattedConfidenceData}
                     margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
                     <XAxis dataKey="name" />
-                    <YAxis />
+                    <YAxis domain={[0, 1]} />
                     <Tooltip contentStyle={{ borderRadius: '8px' }} />
                     <Area
                       type="monotone"
@@ -249,7 +227,7 @@ const ModelSecurity = () => {
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
-                    <XAxis type="number" />
+                    <XAxis type="number" domain={[0, 1]} />
                     <YAxis dataKey="feature" type="category" />
                     <Tooltip contentStyle={{ borderRadius: '8px' }} />
                     <Legend />
@@ -385,32 +363,64 @@ const ModelSecurity = () => {
         )}
       </div>
 
-      <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-white p-6 rounded-lg shadow-md border border-gray-100"
+      >
         <div className="flex items-center mb-4">
           <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
-          <h3 className="text-lg font-semibold">Security Assessment</h3>
+          <h3 className="text-lg font-semibold">Technical Implementation</h3>
         </div>
-        <p className="text-gray-700 mb-4">
-          Our model employs multiple layers of security to detect and prevent data poisoning attacks:
-        </p>
-        <ul className="list-disc pl-5 mb-4 space-y-2">
-          <li className="text-gray-700">
-            <span className="font-medium">Anomaly Detection:</span> Monitors input data for unusual patterns or outliers
-          </li>
-          <li className="text-gray-700">
-            <span className="font-medium">Confidence Tracking:</span> Alerts when model confidence drops suddenly
-          </li>
-          <li className="text-gray-700">
-            <span className="font-medium">Input Validation:</span> Ensures data consistency and prevents extreme values
-          </li>
-          <li className="text-gray-700">
-            <span className="font-medium">Periodic Retraining:</span> Maintains model health with verified data
-          </li>
-        </ul>
-        <p className="text-gray-700">
-          These measures ensure our trend analysis and estimations remain reliable even in the face of potential attacks or data corruption.
-        </p>
-      </div>
+        <div className="text-gray-700 space-y-4">
+          <p>
+            <strong className="font-medium">Tech Stack:</strong> This security monitoring system is built using:
+          </p>
+          <ul className="list-disc pl-5 mb-4 space-y-2">
+            <li className="text-gray-700">
+              <span className="font-medium">React & TypeScript:</span> For component-based UI development 
+              with type safety
+            </li>
+            <li className="text-gray-700">
+              <span className="font-medium">Recharts:</span> Powerful charting library for data visualization
+            </li>
+            <li className="text-gray-700">
+              <span className="font-medium">Framer Motion:</span> For smooth animations and transitions
+            </li>
+            <li className="text-gray-700">
+              <span className="font-medium">Tailwind CSS:</span> For responsive styling
+            </li>
+            <li className="text-gray-700">
+              <span className="font-medium">Zustand:</span> Lightweight state management for sharing data between components
+            </li>
+            <li className="text-gray-700">
+              <span className="font-medium">Shadcn UI:</span> For accessible UI components
+            </li>
+          </ul>
+          
+          <p>
+            <strong className="font-medium">System Architecture:</strong>
+          </p>
+          <ul className="list-disc pl-5 mb-4 space-y-2">
+            <li className="text-gray-700">
+              <span className="font-medium">ModelSecurityTester:</span> Provides interactive inputs that simulate user data
+              and attack scenarios
+            </li>
+            <li className="text-gray-700">
+              <span className="font-medium">SecurityDataStore:</span> Central state manager that connects tester data with visualization
+            </li>
+            <li className="text-gray-700">
+              <span className="font-medium">ModelSecurity:</span> Visualization component showing various security metrics
+            </li>
+          </ul>
+          
+          <p>
+            When a user simulates normal or attack scenarios in the Security Tester, the data flows through the SecurityDataStore
+            to the visualization dashboards, providing real-time updates to all security metrics.
+          </p>
+        </div>
+      </motion.div>
     </div>
   );
 };
