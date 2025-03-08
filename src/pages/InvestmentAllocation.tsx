@@ -36,7 +36,7 @@ const InvestmentAllocation = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:5001/api/allocate", {
+      const response = await fetch("https://taxonomi-backend.onrender.com/api/allocate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ budget: budgetNum })
