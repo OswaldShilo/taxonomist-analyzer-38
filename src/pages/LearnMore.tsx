@@ -3,14 +3,26 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Calculator, PieChart, Brain, Shield, ChartBarIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import Navbar from "@/components/Navbar";
+import Logo from "@/components/Logo";
 
 const LearnMore = () => {
   const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
+      <div className="container mx-auto px-4 py-3 flex items-center justify-between border-b bg-white/80 backdrop-blur-md fixed top-0 left-0 right-0 z-50">
+        <Logo />
+        <div className="flex items-center gap-6">
+          <a href="/#features" className="text-secondary hover:text-primary transition-colors">Features</a>
+          <a href="/#security" className="text-secondary hover:text-primary transition-colors">
+            Security Analysis
+          </a>
+          <a href="/#team" className="text-secondary hover:text-primary transition-colors">Team</a>
+          <Button className="bg-primary hover:bg-primary/90">
+            Get Started
+          </Button>
+        </div>
+      </div>
       
       <div className="pt-32 pb-16 px-4">
         <div className="max-w-4xl mx-auto">

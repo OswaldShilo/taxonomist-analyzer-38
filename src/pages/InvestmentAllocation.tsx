@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, PieChart, TrendingUp, AlertCircle, BarChart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import Logo from "@/components/Logo";
 import { 
   PieChart as RechartsPie, 
   Pie, 
@@ -78,8 +79,8 @@ const InvestmentAllocation = () => {
               <ArrowLeft className="h-4 w-4" />
               Back to Home
             </Button>
-            <div className="text-xl font-semibold text-primary bg-white/80 px-4 py-2 rounded-full">
-              Taxonomist
+            <div className="flex items-center">
+              <Logo />
             </div>
           </div>
 

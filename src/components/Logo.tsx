@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 const Logo = ({ className = "" }: { className?: string }) => {
   return (
     <Link to="/" className="inline-block">
-      <h1 className={`text-2xl font-bold text-gray-800 ${className}`}>
-        Taxonomist
-      </h1>
+      <img 
+        src="/lovable-uploads/19a83dc0-8198-4795-aa66-ad45a5b5f9be.png" 
+        alt="Taxonomist Logo" 
+        className={`h-10 ${className}`}
+      />
     </Link>
   );
 };
