@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,7 +48,6 @@ const ModelSecurityTester = () => {
   // Use our shared store
   const { addDataPoint, updateAnomalousInputs } = useSecurityDataStore();
   
-  const [showTester, setShowTester] = useState(false);
   const [taxRate, setTaxRate] = useState("15");
   const [gdpGrowth, setGdpGrowth] = useState("5.2");
   const [inflation, setInflation] = useState("3.5");
@@ -303,272 +303,242 @@ const ModelSecurityTester = () => {
 
   return (
     <div className="py-8">
-      <div className="text-center mb-8">
-        <Button 
-          size="lg" 
-          onClick={() => setShowTester(!showTester)}
-          className="bg-[#9b87f5] hover:bg-[#7E69AB] transition-colors"
-        >
-          <Shield className="mr-2 h-4 w-4" />
-          {showTester ? "Hide Security Tester" : "Check Our Model (Live Security Testing)"}
-        </Button>
-      </div>
-      
-      {showTester && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.5 }}
-          className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100"
-        >
-          <div className="p-6 border-b bg-gradient-to-r from-[#F1F0FB] to-white">
-            <div className="flex items-center mb-2">
-              <Lock className="text-[#9b87f5] mr-2 h-5 w-5" />
-              <h3 className="text-xl font-semibold">Model Security Testing Interface</h3>
-            </div>
-            <p className="text-gray-600">
-              Test our model's security by submitting normal data or injecting outliers to simulate attacks.
-            </p>
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
+        {/* Input Form */}
+        <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+          <h4 className="text-lg font-medium mb-4 flex items-center">
+            <Activity className="text-gray-800 mr-2 h-4 w-4" />
+            Input Parameters
+          </h4>
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
-            {/* Input Form */}
-            <div className="bg-[#F1F0FB] p-6 rounded-lg shadow-sm">
-              <h4 className="text-lg font-medium mb-4 flex items-center">
-                <Activity className="text-[#9b87f5] mr-2 h-4 w-4" />
-                Input Parameters
-              </h4>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Tax Rate (%)
+              </label>
+              <Input
+                type="number"
+                value={taxRate}
+                onChange={(e) => setTaxRate(e.target.value)}
+                placeholder="Enter tax rate"
+                className="border-gray-300 focus-visible:ring-gray-800"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                GDP Growth (%)
+              </label>
+              <Input
+                type="number"
+                value={gdpGrowth}
+                onChange={(e) => setGdpGrowth(e.target.value)}
+                placeholder="Enter GDP growth"
+                className="border-gray-300 focus-visible:ring-gray-800"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Inflation (%)
+              </label>
+              <Input
+                type="number"
+                value={inflation}
+                onChange={(e) => setInflation(e.target.value)}
+                placeholder="Enter inflation"
+                className="border-gray-300 focus-visible:ring-gray-800"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Unemployment (%)
+              </label>
+              <Input
+                type="number"
+                value={unemployment}
+                onChange={(e) => setUnemployment(e.target.value)}
+                placeholder="Enter unemployment"
+                className="border-gray-300 focus-visible:ring-gray-800"
+              />
+            </div>
+            
+            <div className="pt-2 flex flex-col space-y-3">
+              <Button 
+                onClick={handleSubmitNormal}
+                disabled={isProcessing}
+                variant="dark"
+                className="w-full"
+              >
+                <CheckCircle className="mr-2 h-4 w-4" />
+                Process Normal Data
+              </Button>
               
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Tax Rate (%)
-                  </label>
-                  <Input
-                    type="number"
-                    value={taxRate}
-                    onChange={(e) => setTaxRate(e.target.value)}
-                    placeholder="Enter tax rate"
-                    className="border-[#D6BCFA] focus-visible:ring-[#9b87f5]"
-                  />
+              <Button 
+                onClick={handleSubmitOutlier}
+                disabled={isProcessing}
+                variant="destructive"
+                className="w-full"
+              >
+                <AlertTriangle className="mr-2 h-4 w-4" />
+                Inject Outliers (Simulate Attack)
+              </Button>
+            </div>
+            
+            <div className="border-t pt-3 mt-2">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium text-gray-700 flex items-center">
+                  <Server className="h-4 w-4 mr-1 text-gray-800" />
+                  Server Security Settings
+                </span>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => setShowBackendLogs(!showBackendLogs)} 
+                  className="text-xs text-gray-800 hover:text-gray-600 p-0"
+                >
+                  {showBackendLogs ? "Hide Details" : "Show Details"}
+                </Button>
+              </div>
+              
+              {showBackendLogs && (
+                <div className="bg-[#221F26] text-white text-xs p-3 rounded mb-3 font-mono">
+                  <p className="text-green-400">
+                    <span className="text-gray-400"># Server-side security measures:</span>
+                  </p>
+                  <p className="text-white">
+                    - Original inputs stored in secure database<br />
+                    - Input re-validation before model execution<br />
+                    - Attack detection with anomaly scoring<br />
+                    - Secure API endpoints with input validation
+                  </p>
                 </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    GDP Growth (%)
-                  </label>
-                  <Input
-                    type="number"
-                    value={gdpGrowth}
-                    onChange={(e) => setGdpGrowth(e.target.value)}
-                    placeholder="Enter GDP growth"
-                    className="border-[#D6BCFA] focus-visible:ring-[#9b87f5]"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Inflation (%)
-                  </label>
-                  <Input
-                    type="number"
-                    value={inflation}
-                    onChange={(e) => setInflation(e.target.value)}
-                    placeholder="Enter inflation"
-                    className="border-[#D6BCFA] focus-visible:ring-[#9b87f5]"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Unemployment (%)
-                  </label>
-                  <Input
-                    type="number"
-                    value={unemployment}
-                    onChange={(e) => setUnemployment(e.target.value)}
-                    placeholder="Enter unemployment"
-                    className="border-[#D6BCFA] focus-visible:ring-[#9b87f5]"
-                  />
-                </div>
-                
-                <div className="pt-2 flex flex-col space-y-3">
-                  <Button 
-                    onClick={handleSubmitNormal}
-                    disabled={isProcessing}
-                    className="w-full bg-[#9b87f5] hover:bg-[#7E69AB]"
-                  >
-                    <CheckCircle className="mr-2 h-4 w-4" />
-                    Process Normal Data
-                  </Button>
-                  
-                  <Button 
-                    onClick={handleSubmitOutlier}
-                    disabled={isProcessing}
-                    variant="destructive"
-                    className="w-full"
-                  >
-                    <AlertTriangle className="mr-2 h-4 w-4" />
-                    Inject Outliers (Simulate Attack)
-                  </Button>
-                </div>
-                
-                <div className="border-t pt-3 mt-2">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-700 flex items-center">
-                      <Server className="h-4 w-4 mr-1 text-[#9b87f5]" />
-                      Server Security Settings
-                    </span>
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => setShowBackendLogs(!showBackendLogs)} 
-                      className="text-xs text-[#9b87f5] hover:text-[#7E69AB] p-0"
-                    >
-                      {showBackendLogs ? "Hide Details" : "Show Details"}
-                    </Button>
-                  </div>
-                  
-                  {showBackendLogs && (
-                    <div className="bg-[#221F26] text-white text-xs p-3 rounded mb-3 font-mono">
-                      <p className="text-green-400">
-                        <span className="text-gray-400"># Server-side security measures:</span>
-                      </p>
-                      <p className="text-white">
-                        - Original inputs stored in secure database<br />
-                        - Input re-validation before model execution<br />
-                        - Attack detection with anomaly scoring<br />
-                        - Secure API endpoints with input validation
-                      </p>
+              )}
+              
+              <div className="flex items-center">
+                <button 
+                  onClick={() => setServerVerification(!serverVerification)}
+                  className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${serverVerification ? 'bg-gray-800' : 'bg-gray-300'}`}
+                >
+                  <span className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${serverVerification ? 'translate-x-5' : 'translate-x-0'}`} />
+                </button>
+                <span className="ml-2 text-sm font-medium text-gray-700">
+                  Server-side Validation {serverVerification ? "Enabled" : "Disabled"}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Log Panel */}
+        <div className="bg-[#221F26] rounded-lg p-4 h-96 overflow-y-auto text-sm shadow-md">
+          <h4 className="text-white text-lg font-medium mb-4 flex items-center">
+            <Activity className="text-gray-300 mr-2 h-4 w-4" />
+            Security Logs
+          </h4>
+          
+          {logs.length === 0 ? (
+            <div className="text-gray-500 italic">No logs to display. Submit data to begin testing.</div>
+          ) : (
+            <div className="space-y-2">
+              {logs.map((log) => (
+                <div key={log.id} className="border-b border-[#403E43] pb-2">
+                  {log.type === "success" && (
+                    <div className="flex text-green-400">
+                      <CheckCircle className="mr-2 h-4 w-4 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <div className="font-mono text-xs text-[#9F9EA1]">{log.timestamp}</div>
+                        {log.message}
+                      </div>
                     </div>
                   )}
                   
-                  <div className="flex items-center">
-                    <button 
-                      onClick={() => setServerVerification(!serverVerification)}
-                      className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${serverVerification ? 'bg-[#9b87f5]' : 'bg-gray-300'}`}
-                    >
-                      <span className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${serverVerification ? 'translate-x-5' : 'translate-x-0'}`} />
-                    </button>
-                    <span className="ml-2 text-sm font-medium text-gray-700">
-                      Server-side Validation {serverVerification ? "Enabled" : "Disabled"}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Log Panel */}
-            <div className="bg-[#221F26] rounded-lg p-4 h-96 overflow-y-auto text-sm shadow-md">
-              <h4 className="text-white text-lg font-medium mb-4 flex items-center">
-                <Activity className="text-[#9b87f5] mr-2 h-4 w-4" />
-                Security Logs
-              </h4>
-              
-              {logs.length === 0 ? (
-                <div className="text-gray-500 italic">No logs to display. Submit data to begin testing.</div>
-              ) : (
-                <div className="space-y-2">
-                  {logs.map((log) => (
-                    <div key={log.id} className="border-b border-[#403E43] pb-2">
-                      {log.type === "success" && (
-                        <div className="flex text-green-400">
-                          <CheckCircle className="mr-2 h-4 w-4 flex-shrink-0 mt-0.5" />
-                          <div>
-                            <div className="font-mono text-xs text-[#9F9EA1]">{log.timestamp}</div>
-                            {log.message}
-                          </div>
-                        </div>
-                      )}
-                      
-                      {log.type === "warning" && (
-                        <div className="flex text-yellow-400">
-                          <AlertTriangle className="mr-2 h-4 w-4 flex-shrink-0 mt-0.5" />
-                          <div>
-                            <div className="font-mono text-xs text-[#9F9EA1]">{log.timestamp}</div>
-                            {log.message}
-                          </div>
-                        </div>
-                      )}
-                      
-                      {log.type === "error" && (
-                        <div className="flex text-red-400">
-                          <XCircle className="mr-2 h-4 w-4 flex-shrink-0 mt-0.5" />
-                          <div>
-                            <div className="font-mono text-xs text-[#9F9EA1]">{log.timestamp}</div>
-                            {log.message}
-                          </div>
-                        </div>
-                      )}
+                  {log.type === "warning" && (
+                    <div className="flex text-yellow-400">
+                      <AlertTriangle className="mr-2 h-4 w-4 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <div className="font-mono text-xs text-[#9F9EA1]">{log.timestamp}</div>
+                        {log.message}
+                      </div>
                     </div>
-                  ))}
+                  )}
+                  
+                  {log.type === "error" && (
+                    <div className="flex text-red-400">
+                      <XCircle className="mr-2 h-4 w-4 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <div className="font-mono text-xs text-[#9F9EA1]">{log.timestamp}</div>
+                        {log.message}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
+              ))}
             </div>
-            
-            {/* Real-time Graphs */}
-            <div className="space-y-6">
-              <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                <h4 className="text-lg font-medium mb-2 flex items-center">
-                  <Activity className="text-[#9b87f5] mr-2 h-4 w-4" />
-                  Anomaly Score (Real-time)
-                </h4>
-                <div className="h-36">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={anomalyData}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
-                      <XAxis dataKey="time" />
-                      <YAxis domain={[0, 1]} />
-                      <Tooltip contentStyle={{ borderRadius: '8px' }} />
-                      <Line 
-                        type="monotone" 
-                        dataKey="score" 
-                        stroke="#ff0000" 
-                        activeDot={{ r: 8 }}
-                        strokeWidth={2}
-                        isAnimationActive={true}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-              
-              <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                <h4 className="text-lg font-medium mb-2 flex items-center">
-                  <Activity className="text-[#9b87f5] mr-2 h-4 w-4" />
-                  Model Confidence (Real-time)
-                </h4>
-                <div className="h-36">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={confidenceData}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
-                      <XAxis dataKey="time" />
-                      <YAxis domain={[0, 1]} />
-                      <Tooltip contentStyle={{ borderRadius: '8px' }} />
-                      <Line 
-                        type="monotone" 
-                        dataKey="confidence" 
-                        stroke="#9b87f5" 
-                        activeDot={{ r: 8 }}
-                        strokeWidth={2}
-                        isAnimationActive={true}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
+          )}
+        </div>
+        
+        {/* Real-time Graphs */}
+        <div className="space-y-6">
+          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+            <h4 className="text-lg font-medium mb-2 flex items-center">
+              <Activity className="text-gray-800 mr-2 h-4 w-4" />
+              Anomaly Score (Real-time)
+            </h4>
+            <div className="h-36">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={anomalyData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
+                  <XAxis dataKey="time" />
+                  <YAxis domain={[0, 1]} />
+                  <Tooltip contentStyle={{ borderRadius: '8px' }} />
+                  <Line 
+                    type="monotone" 
+                    dataKey="score" 
+                    stroke="#ff0000" 
+                    activeDot={{ r: 8 }}
+                    strokeWidth={2}
+                    isAnimationActive={true}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
           </div>
           
-          <div className="bg-[#F1F0FB] p-4 border-t">
-            <p className="text-sm text-gray-600 italic flex items-center">
-              <Shield className="inline h-4 w-4 text-[#9b87f5] mr-1" />
-              The model continuously monitors input data for anomalies and potential security threats.
-            </p>
+          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+            <h4 className="text-lg font-medium mb-2 flex items-center">
+              <Activity className="text-gray-800 mr-2 h-4 w-4" />
+              Model Confidence (Real-time)
+            </h4>
+            <div className="h-36">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={confidenceData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
+                  <XAxis dataKey="time" />
+                  <YAxis domain={[0, 1]} />
+                  <Tooltip contentStyle={{ borderRadius: '8px' }} />
+                  <Line 
+                    type="monotone" 
+                    dataKey="confidence" 
+                    stroke="#2D3648" 
+                    activeDot={{ r: 8 }}
+                    strokeWidth={2}
+                    isAnimationActive={true}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
-        </motion.div>
-      )}
+        </div>
+      </div>
+      
+      <div className="bg-gray-50 p-4 border-t">
+        <p className="text-sm text-gray-600 italic flex items-center">
+          <Shield className="inline h-4 w-4 text-gray-800 mr-1" />
+          The model continuously monitors input data for anomalies and potential security threats.
+        </p>
+      </div>
     </div>
   );
 };

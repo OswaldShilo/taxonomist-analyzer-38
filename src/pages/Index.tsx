@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import { ArrowRight, Brain, ChartBarIcon, Shield, Linkedin, Calculator, PieChart, Info, Lock } from "lucide-react";
@@ -5,9 +6,11 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import ModelSecurity from "@/components/ModelSecurity";
 import ModelSecurityTester from "@/components/ModelSecurityTester";
+import { useSecurityDataStore } from "@/store/securityDataStore";
 
 const Index = () => {
   const navigate = useNavigate();
+  const { showSecurityTester, toggleSecurityTester } = useSecurityDataStore();
 
   return (
     <div className="min-h-screen bg-white">
@@ -22,7 +25,7 @@ const Index = () => {
           transition={{ duration: 0.6 }}
           className="container mx-auto text-center"
         >
-          <div className="inline-block mb-4 px-4 py-1 bg-[#E5DEFF] rounded-full text-sm font-medium text-[#9b87f5]">
+          <div className="inline-block mb-4 px-4 py-1 bg-gray-100 rounded-full text-sm font-medium text-gray-800">
             Introducing Taxonomist
           </div>
           <h1 className="text-5xl font-bold text-primary mb-6 max-w-3xl mx-auto leading-tight">
@@ -34,7 +37,7 @@ const Index = () => {
           <div className="flex gap-4 justify-center">
             <Button 
               size="lg" 
-              className="bg-[#9b87f5] hover:bg-[#7E69AB]"
+              className="bg-gray-800 hover:bg-gray-700 text-white"
               onClick={() => navigate("/calculator")}
             >
               <Calculator className="mr-2 h-4 w-4" />
@@ -64,7 +67,7 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-[#F1F0FB]">
+      <section id="features" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -111,14 +114,14 @@ const Index = () => {
       </section>
 
       {/* How Secure is Our Model? Section */}
-      <section id="security" className="py-20 px-4 bg-gradient-to-b from-white to-[#F1F0FB]">
+      <section id="security" className="py-20 px-4 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            className="text-center mb-8"
           >
             <div className="inline-flex items-center mb-4 px-4 py-1 bg-red-50 rounded-full text-sm font-medium text-red-600">
               <Lock className="mr-2 h-4 w-4" />
@@ -130,10 +133,23 @@ const Index = () => {
             </p>
           </motion.div>
           
-          <ModelSecurity />
+          <div className="text-center mb-8">
+            <Button 
+              size="lg" 
+              onClick={toggleSecurityTester}
+              className="bg-gray-800 text-white hover:bg-gray-700 transition-colors"
+            >
+              <Shield className="mr-2 h-4 w-4" />
+              {showSecurityTester ? "Hide Security Analysis" : "View Security Analysis"}
+            </Button>
+          </div>
           
-          {/* Add the new ModelSecurityTester component */}
-          <ModelSecurityTester />
+          {showSecurityTester && (
+            <>
+              <ModelSecurity />
+              <ModelSecurityTester />
+            </>
+          )}
         </div>
       </section>
 

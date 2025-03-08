@@ -18,6 +18,8 @@ type SecurityDataState = {
   anomalyTimeSeriesData: SecurityDataPoint[];
   confidenceData: SecurityDataPoint[];
   anomalousInputsData: AnomalyInputData[];
+  showSecurityTester: boolean;
+  toggleSecurityTester: () => void;
   addDataPoint: (dataPoint: SecurityDataPoint) => void;
   updateAnomalousInputs: (feature: string, score: number) => void;
   resetData: () => void;
@@ -44,6 +46,11 @@ export const useSecurityDataStore = create<SecurityDataState>((set) => ({
   anomalyTimeSeriesData: [...initialAnomalyData],
   confidenceData: [...initialAnomalyData],
   anomalousInputsData: [...initialAnomalousInputs],
+  showSecurityTester: false,
+  
+  toggleSecurityTester: () => set((state) => ({ 
+    showSecurityTester: !state.showSecurityTester 
+  })),
   
   addDataPoint: (dataPoint) => set((state) => {
     // Add new data point to both datasets

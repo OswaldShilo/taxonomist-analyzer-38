@@ -86,33 +86,33 @@ const ModelSecurity = () => {
       <div className="flex justify-center mb-6">
         <div className="inline-flex rounded-md shadow-sm" role="group">
           <Button
-            variant={activeTab === "detection" ? "default" : "outline"}
+            variant={activeTab === "detection" ? "dark" : "outline"}
             onClick={() => setActiveTab("detection")}
             className={cn(
               "rounded-l-md rounded-r-none",
-              activeTab === "detection" ? "bg-[#9b87f5] text-white hover:bg-[#7E69AB]" : "border-[#9b87f5] text-[#9b87f5] hover:bg-[#E5DEFF] hover:text-[#7E69AB]"
+              activeTab === "detection" ? "bg-gray-800 text-white hover:bg-gray-700" : "border-gray-800 text-gray-800 hover:bg-gray-100 hover:text-gray-800"
             )}
           >
             <Shield className="mr-2 h-4 w-4" />
             Detection
           </Button>
           <Button
-            variant={activeTab === "prevention" ? "default" : "outline"}
+            variant={activeTab === "prevention" ? "dark" : "outline"}
             onClick={() => setActiveTab("prevention")}
             className={cn(
               "rounded-none border-x-0",
-              activeTab === "prevention" ? "bg-[#9b87f5] text-white hover:bg-[#7E69AB]" : "border-[#9b87f5] text-[#9b87f5] hover:bg-[#E5DEFF] hover:text-[#7E69AB]"
+              activeTab === "prevention" ? "bg-gray-800 text-white hover:bg-gray-700" : "border-gray-800 text-gray-800 hover:bg-gray-100 hover:text-gray-800"
             )}
           >
             <Lock className="mr-2 h-4 w-4" />
             Prevention
           </Button>
           <Button
-            variant={activeTab === "visualization" ? "default" : "outline"}
+            variant={activeTab === "visualization" ? "dark" : "outline"}
             onClick={() => setActiveTab("visualization")}
             className={cn(
               "rounded-r-md rounded-l-none",
-              activeTab === "visualization" ? "bg-[#9b87f5] text-white hover:bg-[#7E69AB]" : "border-[#9b87f5] text-[#9b87f5] hover:bg-[#E5DEFF] hover:text-[#7E69AB]"
+              activeTab === "visualization" ? "bg-gray-800 text-white hover:bg-gray-700" : "border-gray-800 text-gray-800 hover:bg-gray-100 hover:text-gray-800"
             )}
           >
             <AlertTriangle className="mr-2 h-4 w-4" />
@@ -131,7 +131,7 @@ const ModelSecurity = () => {
               className="bg-white p-6 rounded-lg shadow-md border border-gray-100"
             >
               <h3 className="text-lg font-semibold mb-4 flex items-center">
-                <Shield className="text-[#9b87f5] mr-2 h-5 w-5" />
+                <Shield className="text-gray-800 mr-2 h-5 w-5" />
                 Anomaly Score Over Time
               </h3>
               <p className="text-sm text-gray-600 mb-4">
@@ -151,7 +151,7 @@ const ModelSecurity = () => {
                     <Line
                       type="monotone"
                       dataKey="normal"
-                      stroke="#9b87f5"
+                      stroke="#2D3648"
                       strokeWidth={2}
                       activeDot={{ r: 8 }}
                     />
@@ -173,7 +173,7 @@ const ModelSecurity = () => {
               className="bg-white p-6 rounded-lg shadow-md border border-gray-100"
             >
               <h3 className="text-lg font-semibold mb-4 flex items-center">
-                <Shield className="text-[#9b87f5] mr-2 h-5 w-5" />
+                <Shield className="text-gray-800 mr-2 h-5 w-5" />
                 Confidence Interval Plot
               </h3>
               <p className="text-sm text-gray-600 mb-4">
@@ -192,8 +192,8 @@ const ModelSecurity = () => {
                     <Area
                       type="monotone"
                       dataKey="confidence"
-                      stroke="#9b87f5"
-                      fill="#E5DEFF"
+                      stroke="#2D3648"
+                      fill="#E5E7EB"
                       fillOpacity={0.6}
                       strokeWidth={2}
                     />
@@ -213,7 +213,7 @@ const ModelSecurity = () => {
               className="bg-white p-6 rounded-lg shadow-md border border-gray-100"
             >
               <h3 className="text-lg font-semibold mb-4 flex items-center">
-                <Shield className="text-[#9b87f5] mr-2 h-5 w-5" />
+                <Shield className="text-gray-800 mr-2 h-5 w-5" />
                 Heatmap of Anomalous Inputs
               </h3>
               <p className="text-sm text-gray-600 mb-4">
@@ -251,7 +251,7 @@ const ModelSecurity = () => {
               className="bg-white p-6 rounded-lg shadow-md border border-gray-100"
             >
               <h3 className="text-lg font-semibold mb-4 flex items-center">
-                <Shield className="text-[#9b87f5] mr-2 h-5 w-5" />
+                <Shield className="text-gray-800 mr-2 h-5 w-5" />
                 Precision-Recall Curve
               </h3>
               <p className="text-sm text-gray-600 mb-4">
@@ -271,14 +271,14 @@ const ModelSecurity = () => {
                     <Line
                       type="monotone"
                       dataKey="precision"
-                      stroke="#9b87f5"
+                      stroke="#2D3648"
                       strokeWidth={2}
                       activeDot={{ r: 8 }}
                     />
                     <Line 
                       type="monotone" 
                       dataKey="recall" 
-                      stroke="#7E69AB" 
+                      stroke="#4B5563" 
                       strokeWidth={2}
                     />
                   </LineChart>
@@ -297,7 +297,7 @@ const ModelSecurity = () => {
               className="bg-white p-6 rounded-lg shadow-md border border-gray-100"
             >
               <h3 className="text-lg font-semibold mb-4 flex items-center">
-                <Shield className="text-[#9b87f5] mr-2 h-5 w-5" />
+                <Shield className="text-gray-800 mr-2 h-5 w-5" />
                 Prediction Deviation Graph
               </h3>
               <p className="text-sm text-gray-600 mb-4">
@@ -314,7 +314,7 @@ const ModelSecurity = () => {
                     <YAxis />
                     <Tooltip contentStyle={{ borderRadius: '8px' }} />
                     <Legend />
-                    <Bar dataKey="normal" fill="#9b87f5" />
+                    <Bar dataKey="normal" fill="#2D3648" />
                     <Bar dataKey="poisoned" fill="#ff0000" />
                   </BarChart>
                 </ResponsiveContainer>
@@ -328,7 +328,7 @@ const ModelSecurity = () => {
               className="bg-white p-6 rounded-lg shadow-md border border-gray-100"
             >
               <h3 className="text-lg font-semibold mb-4 flex items-center">
-                <Shield className="text-[#9b87f5] mr-2 h-5 w-5" />
+                <Shield className="text-gray-800 mr-2 h-5 w-5" />
                 Security Radar
               </h3>
               <p className="text-sm text-gray-600 mb-4">
@@ -343,8 +343,8 @@ const ModelSecurity = () => {
                     <Radar
                       name="Normal Operation"
                       dataKey="normal"
-                      stroke="#9b87f5"
-                      fill="#9b87f5"
+                      stroke="#2D3648"
+                      fill="#2D3648"
                       fillOpacity={0.6}
                     />
                     <Radar
@@ -362,65 +362,6 @@ const ModelSecurity = () => {
           </>
         )}
       </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="bg-white p-6 rounded-lg shadow-md border border-gray-100"
-      >
-        <div className="flex items-center mb-4">
-          <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
-          <h3 className="text-lg font-semibold">Technical Implementation</h3>
-        </div>
-        <div className="text-gray-700 space-y-4">
-          <p>
-            <strong className="font-medium">Tech Stack:</strong> This security monitoring system is built using:
-          </p>
-          <ul className="list-disc pl-5 mb-4 space-y-2">
-            <li className="text-gray-700">
-              <span className="font-medium">React & TypeScript:</span> For component-based UI development 
-              with type safety
-            </li>
-            <li className="text-gray-700">
-              <span className="font-medium">Recharts:</span> Powerful charting library for data visualization
-            </li>
-            <li className="text-gray-700">
-              <span className="font-medium">Framer Motion:</span> For smooth animations and transitions
-            </li>
-            <li className="text-gray-700">
-              <span className="font-medium">Tailwind CSS:</span> For responsive styling
-            </li>
-            <li className="text-gray-700">
-              <span className="font-medium">Zustand:</span> Lightweight state management for sharing data between components
-            </li>
-            <li className="text-gray-700">
-              <span className="font-medium">Shadcn UI:</span> For accessible UI components
-            </li>
-          </ul>
-          
-          <p>
-            <strong className="font-medium">System Architecture:</strong>
-          </p>
-          <ul className="list-disc pl-5 mb-4 space-y-2">
-            <li className="text-gray-700">
-              <span className="font-medium">ModelSecurityTester:</span> Provides interactive inputs that simulate user data
-              and attack scenarios
-            </li>
-            <li className="text-gray-700">
-              <span className="font-medium">SecurityDataStore:</span> Central state manager that connects tester data with visualization
-            </li>
-            <li className="text-gray-700">
-              <span className="font-medium">ModelSecurity:</span> Visualization component showing various security metrics
-            </li>
-          </ul>
-          
-          <p>
-            When a user simulates normal or attack scenarios in the Security Tester, the data flows through the SecurityDataStore
-            to the visualization dashboards, providing real-time updates to all security metrics.
-          </p>
-        </div>
-      </motion.div>
     </div>
   );
 };
