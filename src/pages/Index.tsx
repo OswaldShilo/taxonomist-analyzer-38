@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import { ArrowRight, Brain, ChartBarIcon, Shield, Linkedin, Calculator, PieChart, Info, Lock } from "lucide-react";
@@ -23,7 +22,7 @@ const Index = () => {
           transition={{ duration: 0.6 }}
           className="container mx-auto text-center"
         >
-          <div className="inline-block mb-4 px-4 py-1 bg-accent rounded-full text-sm font-medium text-primary">
+          <div className="inline-block mb-4 px-4 py-1 bg-[#E5DEFF] rounded-full text-sm font-medium text-[#9b87f5]">
             Introducing Taxonomist
           </div>
           <h1 className="text-5xl font-bold text-primary mb-6 max-w-3xl mx-auto leading-tight">
@@ -35,7 +34,7 @@ const Index = () => {
           <div className="flex gap-4 justify-center">
             <Button 
               size="lg" 
-              className="bg-primary hover:bg-primary/90"
+              className="bg-[#9b87f5] hover:bg-[#7E69AB]"
               onClick={() => navigate("/calculator")}
             >
               <Calculator className="mr-2 h-4 w-4" />
@@ -65,7 +64,7 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-accent">
+      <section id="features" className="py-20 bg-[#F1F0FB]">
         <div className="container mx-auto px-4">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -112,7 +111,7 @@ const Index = () => {
       </section>
 
       {/* How Secure is Our Model? Section */}
-      <section id="security" className="py-20 px-4">
+      <section id="security" className="py-20 px-4 bg-gradient-to-b from-white to-[#F1F0FB]">
         <div className="container mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

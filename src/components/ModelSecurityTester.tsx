@@ -6,7 +6,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, 
   Tooltip, Legend, ResponsiveContainer
 } from "recharts";
-import { AlertTriangle, CheckCircle, XCircle, Activity, Shield } from "lucide-react";
+import { AlertTriangle, CheckCircle, XCircle, Activity, Shield, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 
@@ -169,7 +169,7 @@ const ModelSecurityTester = () => {
         <Button 
           size="lg" 
           onClick={() => setShowTester(!showTester)}
-          className="bg-blue-500 hover:bg-blue-600"
+          className="bg-[#9b87f5] hover:bg-[#7E69AB] transition-colors"
         >
           <Shield className="mr-2 h-4 w-4" />
           {showTester ? "Hide Security Tester" : "Check Our Model (Live Security Testing)"}
@@ -182,10 +182,13 @@ const ModelSecurityTester = () => {
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-white rounded-lg shadow-lg overflow-hidden"
+          className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100"
         >
-          <div className="p-6 border-b">
-            <h3 className="text-xl font-semibold mb-2">Model Security Testing Interface</h3>
+          <div className="p-6 border-b bg-gradient-to-r from-[#F1F0FB] to-white">
+            <div className="flex items-center mb-2">
+              <Lock className="text-[#9b87f5] mr-2 h-5 w-5" />
+              <h3 className="text-xl font-semibold">Model Security Testing Interface</h3>
+            </div>
             <p className="text-gray-600">
               Test our model's security by submitting normal data or injecting outliers to simulate attacks.
             </p>
@@ -193,8 +196,11 @@ const ModelSecurityTester = () => {
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
             {/* Input Form */}
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h4 className="text-lg font-medium mb-4">Input Parameters</h4>
+            <div className="bg-[#F1F0FB] p-6 rounded-lg shadow-sm">
+              <h4 className="text-lg font-medium mb-4 flex items-center">
+                <Activity className="text-[#9b87f5] mr-2 h-4 w-4" />
+                Input Parameters
+              </h4>
               
               <div className="space-y-4">
                 <div>
@@ -206,6 +212,7 @@ const ModelSecurityTester = () => {
                     value={taxRate}
                     onChange={(e) => setTaxRate(e.target.value)}
                     placeholder="Enter tax rate"
+                    className="border-[#D6BCFA] focus-visible:ring-[#9b87f5]"
                   />
                 </div>
                 
@@ -218,6 +225,7 @@ const ModelSecurityTester = () => {
                     value={gdpGrowth}
                     onChange={(e) => setGdpGrowth(e.target.value)}
                     placeholder="Enter GDP growth"
+                    className="border-[#D6BCFA] focus-visible:ring-[#9b87f5]"
                   />
                 </div>
                 
@@ -230,6 +238,7 @@ const ModelSecurityTester = () => {
                     value={inflation}
                     onChange={(e) => setInflation(e.target.value)}
                     placeholder="Enter inflation"
+                    className="border-[#D6BCFA] focus-visible:ring-[#9b87f5]"
                   />
                 </div>
                 
@@ -242,6 +251,7 @@ const ModelSecurityTester = () => {
                     value={unemployment}
                     onChange={(e) => setUnemployment(e.target.value)}
                     placeholder="Enter unemployment"
+                    className="border-[#D6BCFA] focus-visible:ring-[#9b87f5]"
                   />
                 </div>
                 
@@ -249,7 +259,7 @@ const ModelSecurityTester = () => {
                   <Button 
                     onClick={handleSubmitNormal}
                     disabled={isProcessing}
-                    className="w-full"
+                    className="w-full bg-[#9b87f5] hover:bg-[#7E69AB]"
                   >
                     <CheckCircle className="mr-2 h-4 w-4" />
                     Process Normal Data
@@ -269,20 +279,23 @@ const ModelSecurityTester = () => {
             </div>
             
             {/* Log Panel */}
-            <div className="bg-black rounded-lg p-4 h-96 overflow-y-auto text-sm">
-              <h4 className="text-white text-lg font-medium mb-4">Security Logs</h4>
+            <div className="bg-[#221F26] rounded-lg p-4 h-96 overflow-y-auto text-sm shadow-md">
+              <h4 className="text-white text-lg font-medium mb-4 flex items-center">
+                <Activity className="text-[#9b87f5] mr-2 h-4 w-4" />
+                Security Logs
+              </h4>
               
               {logs.length === 0 ? (
                 <div className="text-gray-500 italic">No logs to display. Submit data to begin testing.</div>
               ) : (
                 <div className="space-y-2">
                   {logs.map((log) => (
-                    <div key={log.id} className="border-b border-gray-800 pb-2">
+                    <div key={log.id} className="border-b border-[#403E43] pb-2">
                       {log.type === "success" && (
                         <div className="flex text-green-400">
                           <CheckCircle className="mr-2 h-4 w-4 flex-shrink-0 mt-0.5" />
                           <div>
-                            <div className="font-mono text-xs text-gray-500">{log.timestamp}</div>
+                            <div className="font-mono text-xs text-[#9F9EA1]">{log.timestamp}</div>
                             {log.message}
                           </div>
                         </div>
@@ -292,7 +305,7 @@ const ModelSecurityTester = () => {
                         <div className="flex text-yellow-400">
                           <AlertTriangle className="mr-2 h-4 w-4 flex-shrink-0 mt-0.5" />
                           <div>
-                            <div className="font-mono text-xs text-gray-500">{log.timestamp}</div>
+                            <div className="font-mono text-xs text-[#9F9EA1]">{log.timestamp}</div>
                             {log.message}
                           </div>
                         </div>
@@ -302,7 +315,7 @@ const ModelSecurityTester = () => {
                         <div className="flex text-red-400">
                           <XCircle className="mr-2 h-4 w-4 flex-shrink-0 mt-0.5" />
                           <div>
-                            <div className="font-mono text-xs text-gray-500">{log.timestamp}</div>
+                            <div className="font-mono text-xs text-[#9F9EA1]">{log.timestamp}</div>
                             {log.message}
                           </div>
                         </div>
@@ -315,20 +328,24 @@ const ModelSecurityTester = () => {
             
             {/* Real-time Graphs */}
             <div className="space-y-6">
-              <div className="bg-white p-4 rounded-lg shadow">
-                <h4 className="text-lg font-medium mb-2">Anomaly Score (Real-time)</h4>
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                <h4 className="text-lg font-medium mb-2 flex items-center">
+                  <Activity className="text-[#9b87f5] mr-2 h-4 w-4" />
+                  Anomaly Score (Real-time)
+                </h4>
                 <div className="h-36">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={anomalyData}>
-                      <CartesianGrid strokeDasharray="3 3" />
+                      <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
                       <XAxis dataKey="time" />
                       <YAxis domain={[0, 1]} />
-                      <Tooltip />
+                      <Tooltip contentStyle={{ borderRadius: '8px' }} />
                       <Line 
                         type="monotone" 
                         dataKey="score" 
                         stroke="#ff0000" 
                         activeDot={{ r: 8 }}
+                        strokeWidth={2}
                         isAnimationActive={true}
                       />
                     </LineChart>
@@ -336,20 +353,24 @@ const ModelSecurityTester = () => {
                 </div>
               </div>
               
-              <div className="bg-white p-4 rounded-lg shadow">
-                <h4 className="text-lg font-medium mb-2">Model Confidence (Real-time)</h4>
+              <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                <h4 className="text-lg font-medium mb-2 flex items-center">
+                  <Activity className="text-[#9b87f5] mr-2 h-4 w-4" />
+                  Model Confidence (Real-time)
+                </h4>
                 <div className="h-36">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={confidenceData}>
-                      <CartesianGrid strokeDasharray="3 3" />
+                      <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
                       <XAxis dataKey="time" />
                       <YAxis domain={[0, 1]} />
-                      <Tooltip />
+                      <Tooltip contentStyle={{ borderRadius: '8px' }} />
                       <Line 
                         type="monotone" 
                         dataKey="confidence" 
-                        stroke="#2D3648" 
+                        stroke="#9b87f5" 
                         activeDot={{ r: 8 }}
+                        strokeWidth={2}
                         isAnimationActive={true}
                       />
                     </LineChart>
@@ -359,9 +380,9 @@ const ModelSecurityTester = () => {
             </div>
           </div>
           
-          <div className="bg-gray-50 p-4 border-t">
-            <p className="text-sm text-gray-600 italic">
-              <Activity className="inline h-4 w-4 text-blue-500 mr-1" />
+          <div className="bg-[#F1F0FB] p-4 border-t">
+            <p className="text-sm text-gray-600 italic flex items-center">
+              <Shield className="inline h-4 w-4 text-[#9b87f5] mr-1" />
               The model continuously monitors input data for anomalies and potential security threats.
             </p>
           </div>

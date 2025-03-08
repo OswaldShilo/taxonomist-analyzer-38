@@ -112,7 +112,7 @@ const ModelSecurity = () => {
             onClick={() => setActiveTab("detection")}
             className={cn(
               "rounded-l-md rounded-r-none",
-              activeTab === "detection" ? "bg-primary text-white" : ""
+              activeTab === "detection" ? "bg-[#9b87f5] text-white hover:bg-[#7E69AB]" : "border-[#9b87f5] text-[#9b87f5] hover:bg-[#E5DEFF] hover:text-[#7E69AB]"
             )}
           >
             <Shield className="mr-2 h-4 w-4" />
@@ -123,7 +123,7 @@ const ModelSecurity = () => {
             onClick={() => setActiveTab("prevention")}
             className={cn(
               "rounded-none border-x-0",
-              activeTab === "prevention" ? "bg-primary text-white" : ""
+              activeTab === "prevention" ? "bg-[#9b87f5] text-white hover:bg-[#7E69AB]" : "border-[#9b87f5] text-[#9b87f5] hover:bg-[#E5DEFF] hover:text-[#7E69AB]"
             )}
           >
             <Lock className="mr-2 h-4 w-4" />
@@ -134,7 +134,7 @@ const ModelSecurity = () => {
             onClick={() => setActiveTab("visualization")}
             className={cn(
               "rounded-r-md rounded-l-none",
-              activeTab === "visualization" ? "bg-primary text-white" : ""
+              activeTab === "visualization" ? "bg-[#9b87f5] text-white hover:bg-[#7E69AB]" : "border-[#9b87f5] text-[#9b87f5] hover:bg-[#E5DEFF] hover:text-[#7E69AB]"
             )}
           >
             <AlertTriangle className="mr-2 h-4 w-4" />
@@ -150,9 +150,12 @@ const ModelSecurity = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="bg-white p-6 rounded-lg shadow-md"
+              className="bg-white p-6 rounded-lg shadow-md border border-gray-100"
             >
-              <h3 className="text-lg font-semibold mb-4">Anomaly Score Over Time</h3>
+              <h3 className="text-lg font-semibold mb-4 flex items-center">
+                <Shield className="text-[#9b87f5] mr-2 h-5 w-5" />
+                Anomaly Score Over Time
+              </h3>
               <p className="text-sm text-gray-600 mb-4">
                 This graph shows how anomaly scores change when poisoned data is introduced into the model.
               </p>
@@ -162,18 +165,24 @@ const ModelSecurity = () => {
                     data={anomalyScoreData}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                   >
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
                     <XAxis dataKey="name" />
                     <YAxis />
-                    <Tooltip />
+                    <Tooltip contentStyle={{ borderRadius: '8px' }} />
                     <Legend />
                     <Line
                       type="monotone"
                       dataKey="normal"
-                      stroke="#2D3648"
+                      stroke="#9b87f5"
+                      strokeWidth={2}
                       activeDot={{ r: 8 }}
                     />
-                    <Line type="monotone" dataKey="poisoned" stroke="#ff0000" />
+                    <Line 
+                      type="monotone" 
+                      dataKey="poisoned" 
+                      stroke="#ff0000" 
+                      strokeWidth={2}
+                    />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
@@ -183,9 +192,12 @@ const ModelSecurity = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-white p-6 rounded-lg shadow-md"
+              className="bg-white p-6 rounded-lg shadow-md border border-gray-100"
             >
-              <h3 className="text-lg font-semibold mb-4">Confidence Interval Plot</h3>
+              <h3 className="text-lg font-semibold mb-4 flex items-center">
+                <Shield className="text-[#9b87f5] mr-2 h-5 w-5" />
+                Confidence Interval Plot
+              </h3>
               <p className="text-sm text-gray-600 mb-4">
                 Shows how model confidence changes before and after poisoning. A sudden drop indicates a potential attack.
               </p>
@@ -195,16 +207,17 @@ const ModelSecurity = () => {
                     data={confidenceData}
                     margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
                   >
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
                     <XAxis dataKey="name" />
                     <YAxis />
-                    <Tooltip />
+                    <Tooltip contentStyle={{ borderRadius: '8px' }} />
                     <Area
                       type="monotone"
                       dataKey="confidence"
-                      stroke="#2D3648"
-                      fill="#7C8BA1"
-                      fillOpacity={0.3}
+                      stroke="#9b87f5"
+                      fill="#E5DEFF"
+                      fillOpacity={0.6}
+                      strokeWidth={2}
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -219,9 +232,12 @@ const ModelSecurity = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="bg-white p-6 rounded-lg shadow-md"
+              className="bg-white p-6 rounded-lg shadow-md border border-gray-100"
             >
-              <h3 className="text-lg font-semibold mb-4">Heatmap of Anomalous Inputs</h3>
+              <h3 className="text-lg font-semibold mb-4 flex items-center">
+                <Shield className="text-[#9b87f5] mr-2 h-5 w-5" />
+                Heatmap of Anomalous Inputs
+              </h3>
               <p className="text-sm text-gray-600 mb-4">
                 Shows which input features are most affected by data poisoning attempts.
               </p>
@@ -232,10 +248,10 @@ const ModelSecurity = () => {
                     data={anomalousInputsData}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                   >
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
                     <XAxis type="number" />
                     <YAxis dataKey="feature" type="category" />
-                    <Tooltip />
+                    <Tooltip contentStyle={{ borderRadius: '8px' }} />
                     <Legend />
                     <Bar dataKey="score" fill="#ff0000">
                       {anomalousInputsData.map((entry, index) => (
@@ -254,9 +270,12 @@ const ModelSecurity = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-white p-6 rounded-lg shadow-md"
+              className="bg-white p-6 rounded-lg shadow-md border border-gray-100"
             >
-              <h3 className="text-lg font-semibold mb-4">Precision-Recall Curve</h3>
+              <h3 className="text-lg font-semibold mb-4 flex items-center">
+                <Shield className="text-[#9b87f5] mr-2 h-5 w-5" />
+                Precision-Recall Curve
+              </h3>
               <p className="text-sm text-gray-600 mb-4">
                 Shows how well the model detects poisoned data without overreacting to normal variations.
               </p>
@@ -266,18 +285,24 @@ const ModelSecurity = () => {
                     data={precisionRecallData}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                   >
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
                     <XAxis dataKey="name" />
                     <YAxis />
-                    <Tooltip />
+                    <Tooltip contentStyle={{ borderRadius: '8px' }} />
                     <Legend />
                     <Line
                       type="monotone"
                       dataKey="precision"
-                      stroke="#2D3648"
+                      stroke="#9b87f5"
+                      strokeWidth={2}
                       activeDot={{ r: 8 }}
                     />
-                    <Line type="monotone" dataKey="recall" stroke="#7C8BA1" />
+                    <Line 
+                      type="monotone" 
+                      dataKey="recall" 
+                      stroke="#7E69AB" 
+                      strokeWidth={2}
+                    />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
@@ -291,9 +316,12 @@ const ModelSecurity = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="bg-white p-6 rounded-lg shadow-md"
+              className="bg-white p-6 rounded-lg shadow-md border border-gray-100"
             >
-              <h3 className="text-lg font-semibold mb-4">Prediction Deviation Graph</h3>
+              <h3 className="text-lg font-semibold mb-4 flex items-center">
+                <Shield className="text-[#9b87f5] mr-2 h-5 w-5" />
+                Prediction Deviation Graph
+              </h3>
               <p className="text-sm text-gray-600 mb-4">
                 Compares normal vs. poisoned predictions to visualize the impact of attacks.
               </p>
@@ -303,12 +331,12 @@ const ModelSecurity = () => {
                     data={predictionDeviationData}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                   >
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f1f1" />
                     <XAxis dataKey="name" />
                     <YAxis />
-                    <Tooltip />
+                    <Tooltip contentStyle={{ borderRadius: '8px' }} />
                     <Legend />
-                    <Bar dataKey="normal" fill="#2D3648" />
+                    <Bar dataKey="normal" fill="#9b87f5" />
                     <Bar dataKey="poisoned" fill="#ff0000" />
                   </BarChart>
                 </ResponsiveContainer>
@@ -319,9 +347,12 @@ const ModelSecurity = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-white p-6 rounded-lg shadow-md"
+              className="bg-white p-6 rounded-lg shadow-md border border-gray-100"
             >
-              <h3 className="text-lg font-semibold mb-4">Security Radar</h3>
+              <h3 className="text-lg font-semibold mb-4 flex items-center">
+                <Shield className="text-[#9b87f5] mr-2 h-5 w-5" />
+                Security Radar
+              </h3>
               <p className="text-sm text-gray-600 mb-4">
                 Visualizes security metrics across different dimensions before and after attacks.
               </p>
@@ -334,8 +365,8 @@ const ModelSecurity = () => {
                     <Radar
                       name="Normal Operation"
                       dataKey="normal"
-                      stroke="#2D3648"
-                      fill="#2D3648"
+                      stroke="#9b87f5"
+                      fill="#9b87f5"
                       fillOpacity={0.6}
                     />
                     <Radar
@@ -354,7 +385,7 @@ const ModelSecurity = () => {
         )}
       </div>
 
-      <div className="bg-white p-6 rounded-lg shadow-md">
+      <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
         <div className="flex items-center mb-4">
           <CheckCircle className="text-green-500 mr-2 h-5 w-5" />
           <h3 className="text-lg font-semibold">Security Assessment</h3>
